@@ -11,39 +11,39 @@
     </dependencies>
     <scenes>
         <!--Chat View-->
-        <scene sceneID="pTM-5i-Jy4">
+        <scene sceneID="oUz-Oh-nD6">
             <objects>
-                <viewController storyboardIdentifier="chatViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="S4B-cS-RPL" customClass="chatView" customModule="chatUI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chatViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Hij-Ne-cFf" customClass="chatView" customModule="chatUI" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="8mM-vM-Ng7"/>
-                        <viewControllerLayoutGuide type="bottom" id="R5z-dr-fZ0"/>
+                        <viewControllerLayoutGuide type="top" id="6FU-3J-riK"/>
+                        <viewControllerLayoutGuide type="bottom" id="siv-iZ-w6Q"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="1t0-gD-TcD">
+                    <view key="view" contentMode="scaleToFill" id="6E7-Er-na7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Md-sj-FeE">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kaj-9n-hQ8">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="553.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="S4B-cS-RPL" id="atj-KF-6Bc"/>
-                                    <outlet property="delegate" destination="S4B-cS-RPL" id="h8o-T1-uT0"/>
+                                    <outlet property="dataSource" destination="Hij-Ne-cFf" id="hAT-R6-vdG"/>
+                                    <outlet property="delegate" destination="Hij-Ne-cFf" id="uge-iK-5ve"/>
                                 </connections>
                             </tableView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQv-bd-MN1">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wd3-pc-bAp">
                                 <rect key="frame" x="0.0" y="553.5" width="375" height="49.5"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" bounces="NO" scrollEnabled="NO" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PZY-Xb-al4">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" bounces="NO" scrollEnabled="NO" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fdd-BW-YBF">
                                         <rect key="frame" x="8" y="6" width="321" height="37.5"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <connections>
-                                            <outlet property="delegate" destination="S4B-cS-RPL" id="GSM-vd-Ozy"/>
+                                            <outlet property="delegate" destination="Hij-Ne-cFf" id="0En-g6-u3x"/>
                                         </connections>
                                     </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="94R-wz-VpQ">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPl-js-CVU">
                                         <rect key="frame" x="333" y="8" width="37" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="17"/>
@@ -51,72 +51,70 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="sendButton:" destination="S4B-cS-RPL" eventType="touchUpInside" id="49F-kv-K6a"/>
+                                            <action selector="sendButton:" destination="Hij-Ne-cFf" eventType="touchUpInside" id="g3K-zN-Vsy"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="PZY-Xb-al4" firstAttribute="centerY" secondItem="IQv-bd-MN1" secondAttribute="centerY" identifier="id12" id="3k1-KO-rKY"/>
-                                    <constraint firstItem="PZY-Xb-al4" firstAttribute="top" secondItem="IQv-bd-MN1" secondAttribute="top" constant="6" id="CUV-c6-Yu9"/>
-                                    <constraint firstItem="PZY-Xb-al4" firstAttribute="leading" secondItem="IQv-bd-MN1" secondAttribute="leading" constant="8" id="YWA-xr-bN7"/>
-                                    <constraint firstAttribute="bottom" secondItem="PZY-Xb-al4" secondAttribute="bottom" constant="6" identifier="id9" id="dr3-xD-sbp"/>
-                                    <constraint firstAttribute="trailing" secondItem="PZY-Xb-al4" secondAttribute="trailing" constant="46" id="q9H-0t-FIp"/>
-                                    <constraint firstItem="PZY-Xb-al4" firstAttribute="leading" secondItem="IQv-bd-MN1" secondAttribute="leading" constant="8" id="uSm-Vc-m0a"/>
+                                    <constraint firstItem="fdd-BW-YBF" firstAttribute="leading" secondItem="Wd3-pc-bAp" secondAttribute="leading" constant="8" id="31Q-B9-yVl"/>
+                                    <constraint firstAttribute="bottom" secondItem="fdd-BW-YBF" secondAttribute="bottom" constant="6" identifier="id9" id="Wbc-JV-Ebz"/>
+                                    <constraint firstItem="fdd-BW-YBF" firstAttribute="top" secondItem="Wd3-pc-bAp" secondAttribute="top" constant="6" id="Wbu-9m-nND"/>
+                                    <constraint firstItem="fdd-BW-YBF" firstAttribute="leading" secondItem="Wd3-pc-bAp" secondAttribute="leading" constant="8" id="b1n-qe-3gd"/>
+                                    <constraint firstItem="fdd-BW-YBF" firstAttribute="centerY" secondItem="Wd3-pc-bAp" secondAttribute="centerY" identifier="id12" id="fno-ym-AMI"/>
+                                    <constraint firstAttribute="trailing" secondItem="fdd-BW-YBF" secondAttribute="trailing" constant="46" id="maA-kf-uiO"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="4Md-sj-FeE" firstAttribute="top" secondItem="8mM-vM-Ng7" secondAttribute="bottom" identifier="id3" id="3DV-4P-Ebh"/>
-                            <constraint firstItem="R5z-dr-fZ0" firstAttribute="top" secondItem="IQv-bd-MN1" secondAttribute="bottom" id="Oac-LQ-b6I"/>
-                            <constraint firstItem="IQv-bd-MN1" firstAttribute="leading" secondItem="1t0-gD-TcD" secondAttribute="leading" identifier="id5" id="ZOr-BY-3st"/>
-                            <constraint firstItem="4Md-sj-FeE" firstAttribute="leading" secondItem="1t0-gD-TcD" secondAttribute="leading" identifier="id1" id="fIm-qE-PYz"/>
-                            <constraint firstItem="IQv-bd-MN1" firstAttribute="top" secondItem="4Md-sj-FeE" secondAttribute="bottom" id="gEe-yY-gSP"/>
-                            <constraint firstAttribute="trailing" secondItem="4Md-sj-FeE" secondAttribute="trailing" identifier="id2" id="iMZ-Cs-Kry"/>
-                            <constraint firstAttribute="trailing" secondItem="IQv-bd-MN1" secondAttribute="trailing" identifier="id4" id="yKR-7O-Kr0"/>
+                            <constraint firstAttribute="trailing" secondItem="Wd3-pc-bAp" secondAttribute="trailing" identifier="id4" id="Ah2-qa-yXp"/>
+                            <constraint firstItem="siv-iZ-w6Q" firstAttribute="top" secondItem="Wd3-pc-bAp" secondAttribute="bottom" id="HQU-lf-FxK"/>
+                            <constraint firstItem="kaj-9n-hQ8" firstAttribute="leading" secondItem="6E7-Er-na7" secondAttribute="leading" identifier="id1" id="Pit-tx-umb"/>
+                            <constraint firstItem="Wd3-pc-bAp" firstAttribute="top" secondItem="kaj-9n-hQ8" secondAttribute="bottom" id="T8C-SB-n9D"/>
+                            <constraint firstItem="Wd3-pc-bAp" firstAttribute="leading" secondItem="6E7-Er-na7" secondAttribute="leading" identifier="id5" id="d7u-pN-itq"/>
+                            <constraint firstAttribute="trailing" secondItem="kaj-9n-hQ8" secondAttribute="trailing" identifier="id2" id="rMV-K0-yyz"/>
+                            <constraint firstItem="kaj-9n-hQ8" firstAttribute="top" secondItem="6FU-3J-riK" secondAttribute="bottom" identifier="id3" id="sGa-R7-Z8x"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="oa8-6E-D4r"/>
+                        <viewLayoutGuide key="safeArea" id="SkR-f8-wkq"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="kee-G9-LT5">
+                    <navigationItem key="navigationItem" id="max-v2-d9K">
                         <nil key="title"/>
-                        <view key="titleView" contentMode="scaleToFill" id="FrF-IY-Emh">
+                        <view key="titleView" contentMode="scaleToFill" id="yyH-39-yXa">
                             <rect key="frame" x="149" y="2" width="77" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WcP-Jo-QPv">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3xT-tv-N42" customClass="PFImageView">
                                     <rect key="frame" x="24" y="0.0" width="38" height="38"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.20000000000000001" green="0.28627450980000002" blue="0.39607843139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </imageView>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6dH-8n-bLX">
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vAM-gp-pha">
                                     <rect key="frame" x="36" y="26" width="15" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.85490196080000003" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etA-aR-adF">
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s3Y-0C-3c0">
                                     <rect key="frame" x="0.0" y="0.0" width="77" height="38"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <connections>
-                                        <action selector="itemButton:" destination="S4B-cS-RPL" eventType="touchUpInside" id="Rdr-1i-tv4"/>
-                                    </connections>
                                 </button>
                             </subviews>
                         </view>
                     </navigationItem>
                     <connections>
-                        <outlet property="bottomView" destination="IQv-bd-MN1" id="nF3-UP-mxz"/>
-                        <outlet property="isOnlineView" destination="6dH-8n-bLX" id="LL4-H9-iS6"/>
-                        <outlet property="itemImag" destination="WcP-Jo-QPv" id="meJ-Vt-tUK"/>
-                        <outlet property="messageTextView" destination="PZY-Xb-al4" id="TTI-AQ-2Np"/>
-                        <outlet property="sendButton" destination="94R-wz-VpQ" id="z0b-E8-jRv"/>
-                        <outlet property="tableView" destination="4Md-sj-FeE" id="40C-du-rSJ"/>
+                        <outlet property="bottomView" destination="Wd3-pc-bAp" id="cWX-eU-fvZ"/>
+                        <outlet property="bottomViewContraits" destination="HQU-lf-FxK" id="q9J-Ai-5an"/>
+                        <outlet property="isOnlineView" destination="vAM-gp-pha" id="A1J-Yy-C1l"/>
+                        <outlet property="itemImag" destination="3xT-tv-N42" id="Zoe-bn-Ml2"/>
+                        <outlet property="messageTextView" destination="fdd-BW-YBF" id="6RY-1l-7WE"/>
+                        <outlet property="sendButton" destination="MPl-js-CVU" id="x0P-bw-9yq"/>
+                        <outlet property="tableView" destination="kaj-9n-hQ8" id="73h-6O-clY"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="63Y-zs-6il" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oHn-vf-cZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1935.2" y="101.19940029985008"/>
+            <point key="canvasLocation" x="1743" y="101"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Zxa-Dj-t6N">
@@ -129,7 +127,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="S4B-cS-RPL" kind="relationship" relationship="rootViewController" id="BlX-39-YMs"/>
+                        <segue destination="Hij-Ne-cFf" kind="relationship" relationship="rootViewController" id="QL8-aR-JeA"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YaI-3z-cB2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -138,6 +136,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="send" width="16" height="16"/>
+        <image name="send" width="88" height="88"/>
     </resources>
 </document>
