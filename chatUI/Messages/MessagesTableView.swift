@@ -178,17 +178,31 @@ extension MessagesUI: UITableViewDelegate {
             cell.messageStatusView.isHidden = false
         default:
             if cell.messageStatusView.isHidden {
-                 self.tableView.beginUpdates()
                  cell.messageStatusView.isHidden = false
-                 self.tableView.endUpdates()
+                 let loc = tableView.contentOffset
+                 UIView.performWithoutAnimation {
+                     tableView.layoutIfNeeded()
+                     tableView.beginUpdates()
+                     tableView.endUpdates()
+
+                     tableView.layer.removeAllAnimations()
+                 }
+                 tableView.setContentOffset(loc, animated: true)
             } else {
-                 self.tableView.beginUpdates()
                  cell.messageStatusView.isHidden = true
-                 self.tableView.endUpdates()
+                 let loc = tableView.contentOffset
+                 UIView.performWithoutAnimation {
+                     tableView.layoutIfNeeded()
+                     tableView.beginUpdates()
+                     tableView.endUpdates()
+
+                     tableView.layer.removeAllAnimations()
+                 }
+                 tableView.setContentOffset(loc, animated: true)
             }
         }
         
-        endEditing(true)
+        
     }
     
 
@@ -201,9 +215,17 @@ extension MessagesUI: UITableViewDelegate {
             /// the last row (date show always)
            cell.messageStatusView.isHidden = false
        default:
-            self.tableView.beginUpdates()
             cell.messageStatusView.isHidden = true
-            self.tableView.endUpdates()
+            let loc = tableView.contentOffset
+            UIView.performWithoutAnimation {
+                tableView.layoutIfNeeded()
+                tableView.beginUpdates()
+                tableView.endUpdates()
+
+                tableView.layer.removeAllAnimations()
+            }
+            tableView.setContentOffset(loc, animated: true)
+         
        }
         
     }

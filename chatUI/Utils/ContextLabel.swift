@@ -290,13 +290,13 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
   
   public required init?(coder: NSCoder) {
     super.init(coder: coder)
-    
+    self.textAlignment = .natural
     setup()
   }
   
   public override init(frame: CGRect) {
     super.init(frame: frame)
-    
+    self.textAlignment = .natural
     setup()
   }
   

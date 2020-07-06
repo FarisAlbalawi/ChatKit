@@ -48,7 +48,6 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
     
     private var audioPlayer: AVAudioPlayer!
     private var url: URL?
-    private var counter = 0
     override func prepareForReuse() {
          super.prepareForReuse()
       
@@ -78,7 +77,7 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
          let date = dateFormatTime(date: message.createdAt)
          self.messageStatusView.dateLab.text = date
          self.url = message.audio
-        do {
+         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: self.url!)
             self.audioPlayer.prepareToPlay()
             self.audioPlayer.delegate = self
@@ -127,6 +126,7 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
             updateTime()
         } else {
             playBtn.setImage(UIImage(named: "pause_icon")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            audioPlayer.play()
             updateTime()
 
         }
