@@ -68,8 +68,8 @@ class MessagesView: UIViewController {
             
             Messages(objectId: "1323", user: MeFaris, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: false),
             
-            Messages(objectId: "1323", user: Tim, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: true),
-            Messages(objectId: "1323", user: Tim, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/23/2019"), isIncoming: true),
+            Messages(objectId: "1323", user: goh, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: true),
+            Messages(objectId: "1323", user: goh, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/23/2019"), isIncoming: true),
             
             Messages(objectId: "1323", user: goh, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/23/2019"), isIncoming: true),
             
@@ -108,7 +108,15 @@ class MessagesView: UIViewController {
           if diff.day == 0 {
              MessagesViewModel.shared.object[self.messagesData.count - 1].append(NewMessages)
                self.messagesData[self.messagesData.count - 1].append(NewMessages)
-               self.ui.tableView.reloadData()
+               let loc =  self.ui.tableView.contentOffset
+                 UIView.performWithoutAnimation {
+                   self.ui.tableView.reloadData()
+                   self.ui.tableView.layoutIfNeeded()
+                   self.ui.tableView.beginUpdates()
+                   self.ui.tableView.endUpdates()
+                   self.ui.tableView.layer.removeAllAnimations()
+                 }
+               self.ui.tableView.setContentOffset(loc, animated: true)
                DispatchQueue.main.async {
                     self.ui.tableView.scrollToBottom(animated: false)
                     self.ui.tableView.layoutIfNeeded()
@@ -118,12 +126,24 @@ class MessagesView: UIViewController {
          } else {
              MessagesViewModel.shared.object.insert([NewMessages], at: self.messagesData.count)
              self.messagesData.insert([NewMessages], at: self.messagesData.count)
-             self.ui.tableView.reloadData()
+             
+            let loc =  self.ui.tableView.contentOffset
+              UIView.performWithoutAnimation {
+                self.ui.tableView.reloadData()
+                self.ui.tableView.layoutIfNeeded()
+                self.ui.tableView.beginUpdates()
+                self.ui.tableView.endUpdates()
+                self.ui.tableView.layer.removeAllAnimations()
+              }
+             self.ui.tableView.setContentOffset(loc, animated: true)
              DispatchQueue.main.async {
                  self.ui.tableView.scrollToBottom(animated: false)
                  self.ui.tableView.layoutIfNeeded()
                  self.ui.tableView.setContentOffset(CGPoint(x: 0, y: self.ui.tableView.contentSize.height - self.ui.tableView.frame.height - 20), animated: false)
              }
+            
+  
+
          }
     }
 

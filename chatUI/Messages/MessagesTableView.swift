@@ -184,7 +184,6 @@ extension MessagesUI: UITableViewDelegate {
                      tableView.layoutIfNeeded()
                      tableView.beginUpdates()
                      tableView.endUpdates()
-
                      tableView.layer.removeAllAnimations()
                  }
                  tableView.setContentOffset(loc, animated: true)

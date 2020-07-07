@@ -46,7 +46,8 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
       }()
     
     
-    private var audioPlayer: AVAudioPlayer!
+    private var audioPlayer: AVAudioPlayer?
+
     private var url: URL?
     override func prepareForReuse() {
          super.prepareForReuse()
@@ -79,8 +80,10 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
          self.url = message.audio
          do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: self.url!)
-            self.audioPlayer.prepareToPlay()
-            self.audioPlayer.delegate = self
+
+            guard let player = audioPlayer else {return}
+            player.prepareToPlay()
+            player.delegate = self
             self.updateTime()
         } catch let error {
             print("\(error)")
@@ -120,13 +123,14 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
     
     
     @objc func play_pause() {
-        if audioPlayer.isPlaying {
+        guard let player = audioPlayer else {return}
+        if player.isPlaying {
             playBtn.setImage(UIImage(named: "play_icon")?.withRenderingMode(.alwaysTemplate), for: .normal)
-            audioPlayer.pause()
+            player.pause()
             updateTime()
         } else {
             playBtn.setImage(UIImage(named: "pause_icon")?.withRenderingMode(.alwaysTemplate), for: .normal)
-            audioPlayer.play()
+            player.play()
             updateTime()
 
         }
@@ -137,23 +141,26 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
     
     
     @objc func sliderPlayer() {
-        if audioPlayer.isPlaying {
-            audioPlayer.stop()
-            audioPlayer.currentTime =  TimeInterval(slider.value)
-            audioPlayer.play()
+        guard let player = audioPlayer else {return}
+        if player.isPlaying {
+            player.stop()
+            player.currentTime =  TimeInterval(slider.value)
+            player.play()
         }else{
-            audioPlayer.currentTime = TimeInterval(slider.value)
+            player.currentTime = TimeInterval(slider.value)
         }
     }
     
     func updateTime() {
+         guard let player = audioPlayer else {return}
          Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
-         slider.maximumValue = Float(audioPlayer.duration)
-         totalTime.text = stringFormatterTimeInterval(interval: audioPlayer.duration) as String
+         slider.maximumValue = Float(player.duration)
+         totalTime.text = stringFormatterTimeInterval(interval: player.duration) as String
      }
     
     @objc func update (_timer : Timer ) {
-        slider.value = Float(audioPlayer.currentTime)
+         guard let player = audioPlayer else {return}
+        slider.value = Float(player.currentTime)
         time.text =  stringFormatterTimeInterval(interval: TimeInterval(slider.value)) as String
     }
     
@@ -165,9 +172,10 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool){
+         guard let player = audioPlayer else {return}
         if flag == true {
            self.playBtn.setImage(UIImage(named: "play_icon")?.withRenderingMode(.alwaysTemplate), for: .normal)
-           self.audioPlayer.pause()
+           player.pause()
         }
     }
     
