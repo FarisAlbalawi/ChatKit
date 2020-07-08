@@ -19,6 +19,12 @@ class chatUI: MessagesUI {
 
         return style
     }
+    
+   override func updateUIElements() {
+        let view = chatStickersView()
+        self.stickersView = view
+    }
+    
 }
 
 class MessagesView: UIViewController {
@@ -44,9 +50,6 @@ class MessagesView: UIViewController {
     
      var messagesData = [[Messages]]()
     
-    
- 
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -173,7 +176,6 @@ extension MessagesView: DataSource {
 extension MessagesView: inputDelegate {
     
     func sendText(text: String) {
-        print("sadfdf")
         let now = Date()
         let NewMessages = Messages(objectId: "12321", user: MeFaris, text: text, createdAt: now, isIncoming: false)
         self.insert(NewMessages)

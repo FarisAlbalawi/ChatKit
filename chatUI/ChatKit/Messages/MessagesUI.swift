@@ -140,7 +140,7 @@ open class MessagesUI : UIView {
     
     
     /// ------------------------------------
-    private var stickersView: chatStickersUI = {
+    open var stickersView: chatStickersUI = {
         let view = chatStickersUI()
         view.backgroundColor = .systemGray6
         return view
@@ -198,10 +198,13 @@ open class MessagesUI : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = style.backgroundColor
+        updateUIElements()
         setupUIElements()
         addObserver()
         
     }
+    
+    func updateUIElements() {}
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -355,14 +358,10 @@ open class MessagesUI : UIView {
           }
           
         }
-        
-       
-
-        
+    
     }
     
     
-
     private func restButton() {
         self.sendButton.isEnabled = true
         self.emojiButton.isEnabled = true
@@ -378,7 +377,7 @@ open class MessagesUI : UIView {
 
 extension MessagesUI {
 
-    private func setupUIElements() {
+   private func setupUIElements() {
         addSubview(tableView)
     
         /// ------------------------------------

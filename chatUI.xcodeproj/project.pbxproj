@@ -33,7 +33,6 @@
 		644B2F2A2449841D006D2FA5 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644B2F292449841D006D2FA5 /* UIColor+Extension.swift */; };
 		6450A8A32496F4A60013C8CE /* ChatKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6450A8A22496F4A60013C8CE /* ChatKit.swift */; };
 		6450A8A7249989420013C8CE /* chatStickersUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6450A8A6249989420013C8CE /* chatStickersUI.swift */; };
-		6450A8AA2499BD7C0013C8CE /* StickersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6450A8A92499BD7C0013C8CE /* StickersModel.swift */; };
 		64615C432488252F00B09519 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64615C422488252F00B09519 /* AudioRecorder.swift */; };
 		64615C4C248ED93D00B09519 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64615C4B248ED93D00B09519 /* DataSource.swift */; };
 		64615C5024907EE100B09519 /* MessagesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64615C4F24907EE100B09519 /* MessagesTableView.swift */; };
@@ -44,6 +43,7 @@
 		64674E4B244BF3B000E77AFB /* UITableVie+Extension .swift in Sources */ = {isa = PBXBuildFile; fileRef = 64674E4A244BF3B000E77AFB /* UITableVie+Extension .swift */; };
 		64674E4D244CC16400E77AFB /* UILabel+Extension .swift in Sources */ = {isa = PBXBuildFile; fileRef = 64674E4C244CC16400E77AFB /* UILabel+Extension .swift */; };
 		64674E6F244D026700E77AFB /* ContextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64674E6E244D026700E77AFB /* ContextLabel.swift */; };
+		646F6E2824B5417200EA456D /* chatStickersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646F6E2724B5417200EA456D /* chatStickersView.swift */; };
 		649E9F1724685B4F00F06127 /* SwiftGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649E9F1624685B4F00F06127 /* SwiftGif.swift */; };
 		649E9F1924685B7400F06127 /* GifCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649E9F1824685B7400F06127 /* GifCell.swift */; };
 		64BED1D8245797C600C5BC44 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BED1D7245797C600C5BC44 /* Keyboard.swift */; };
@@ -94,7 +94,6 @@
 		644B2F292449841D006D2FA5 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		6450A8A22496F4A60013C8CE /* ChatKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatKit.swift; sourceTree = "<group>"; };
 		6450A8A6249989420013C8CE /* chatStickersUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatStickersUI.swift; sourceTree = "<group>"; };
-		6450A8A92499BD7C0013C8CE /* StickersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickersModel.swift; sourceTree = "<group>"; };
 		64615C422488252F00B09519 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		64615C4B248ED93D00B09519 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		64615C4F24907EE100B09519 /* MessagesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableView.swift; sourceTree = "<group>"; };
@@ -105,6 +104,7 @@
 		64674E4A244BF3B000E77AFB /* UITableVie+Extension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableVie+Extension .swift"; sourceTree = "<group>"; };
 		64674E4C244CC16400E77AFB /* UILabel+Extension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension .swift"; sourceTree = "<group>"; };
 		64674E6E244D026700E77AFB /* ContextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextLabel.swift; sourceTree = "<group>"; };
+		646F6E2724B5417200EA456D /* chatStickersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatStickersView.swift; sourceTree = "<group>"; };
 		649E9F1624685B4F00F06127 /* SwiftGif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGif.swift; sourceTree = "<group>"; };
 		649E9F1824685B7400F06127 /* GifCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifCell.swift; sourceTree = "<group>"; };
 		64BED1D7245797C600C5BC44 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
@@ -141,7 +141,6 @@
 		64492B3B245911BB0001CA75 /* Stickers */ = {
 			isa = PBXGroup;
 			children = (
-				6450A8A82499BD550013C8CE /* StickersModel */,
 				6450A8A4249988E00013C8CE /* ChatStickers */,
 				6450A8A5249989070013C8CE /* EditorStickers */,
 			);
@@ -177,16 +176,10 @@
 		644B2EF524497FFD006D2FA5 /* chatUI */ = {
 			isa = PBXGroup;
 			children = (
+				646F6E2624B5406B00EA456D /* ChatKit */,
 				64E443F0244F70D200DA8076 /* chatUI.entitlements */,
-				64615C44248E441700B09519 /* Models */,
-				644B2F1324498041006D2FA5 /* MessagesCell */,
-				644B2F0A24498014006D2FA5 /* Messages */,
-				64E443FD2451F03900DA8076 /* Images */,
-				644B2F23244982E7006D2FA5 /* Utils */,
-				644B2F24244982F1006D2FA5 /* Extensions */,
-				64492B3B245911BB0001CA75 /* Stickers */,
-				64E60478248575B8000FBBE8 /* Audio */,
 				644B2EF624497FFE006D2FA5 /* AppDelegate.swift */,
+				646F6E2724B5417200EA456D /* chatStickersView.swift */,
 				644B2F0B24498033006D2FA5 /* MessagesView.swift */,
 				644B2EF824497FFE006D2FA5 /* SceneDelegate.swift */,
 				644B2EFA24497FFE006D2FA5 /* ViewController.swift */,
@@ -275,14 +268,6 @@
 			path = EditorStickers;
 			sourceTree = "<group>";
 		};
-		6450A8A82499BD550013C8CE /* StickersModel */ = {
-			isa = PBXGroup;
-			children = (
-				6450A8A92499BD7C0013C8CE /* StickersModel.swift */,
-			);
-			path = StickersModel;
-			sourceTree = "<group>";
-		};
 		64615C44248E441700B09519 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -297,6 +282,21 @@
 				64615CCA249576FC00B09519 /* MessegesStyle.swift */,
 			);
 			path = Style;
+			sourceTree = "<group>";
+		};
+		646F6E2624B5406B00EA456D /* ChatKit */ = {
+			isa = PBXGroup;
+			children = (
+				64E60478248575B8000FBBE8 /* Audio */,
+				64492B3B245911BB0001CA75 /* Stickers */,
+				644B2F24244982F1006D2FA5 /* Extensions */,
+				644B2F23244982E7006D2FA5 /* Utils */,
+				64E443FD2451F03900DA8076 /* Images */,
+				644B2F0A24498014006D2FA5 /* Messages */,
+				644B2F1324498041006D2FA5 /* MessagesCell */,
+				64615C44248E441700B09519 /* Models */,
+			);
+			path = ChatKit;
 			sourceTree = "<group>";
 		};
 		64BED1D924579A9300C5BC44 /* Crop */ = {
@@ -460,8 +460,8 @@
 				644B2F182449809D006D2FA5 /* MessageCell.swift in Sources */,
 				64615C4C248ED93D00B09519 /* DataSource.swift in Sources */,
 				64492B3D245911DB0001CA75 /* StickerViewController.swift in Sources */,
-				6450A8AA2499BD7C0013C8CE /* StickersModel.swift in Sources */,
 				64492B422459121E0001CA75 /* EmojiCell.swift in Sources */,
+				646F6E2824B5417200EA456D /* chatStickersView.swift in Sources */,
 				64615CCB249576FC00B09519 /* MessegesStyle.swift in Sources */,
 				64E444162452612F00DA8076 /* Stroke.swift in Sources */,
 				64E444092452420700DA8076 /* ImageEditorUI.swift in Sources */,

@@ -1,16 +1,15 @@
 //
-//  chatStickersUI.swift
+//  chatStickersView.swift
 //  chatUI
 //
-//  Created by Faris Albalawi on 6/16/20.
+//  Created by Faris Albalawi on 7/7/20.
 //  Copyright © 2020 Faris Albalawi. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-
-class switchIconView: UIView {
+ class switchIconView: UIView {
     
    lazy var icon: UIImageView = {
         let icons = UIImageView()
@@ -25,7 +24,7 @@ class switchIconView: UIView {
         self.setupUIElements()
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -40,15 +39,10 @@ class switchIconView: UIView {
         self.icon.center(inView: self)
         self.icon.setDimensions(width: 25, height: 25)
     }
-
-
-
-    
     
 }
 
-class chatStickersUI: UIView {
-    
+class chatStickersView: chatStickersUI {
     
     private var gifView: switchIconView = {
         let view = switchIconView(icon: UIImage(named: "gif_icon")!)
@@ -78,9 +72,9 @@ class chatStickersUI: UIView {
         return stackView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+    
+    
+     override func setupUIElements() {
         let stickerGesture = UITapGestureRecognizer(target: self, action:  #selector(self.didPressSticker))
         stickerView.addGestureRecognizer(stickerGesture)
         
@@ -88,48 +82,37 @@ class chatStickersUI: UIView {
         let gifGesture = UITapGestureRecognizer(target: self, action:  #selector(self.didPressGif))
         gifView.addGestureRecognizer(gifGesture)
         
-        self.setupUIElements()
-        self.setupConstraints()
-    }
+         self.layer.cornerRadius = 10
+         self.addSubview(iconstackView)
+         self.iconstackView.addArrangedSubview(stickerView)
+         self.iconstackView.addArrangedSubview(gifView)
+     }
+     
+     override func setupConstraints() {
+         self.iconstackView.centerX(inView: self, topAnchor: self.topAnchor, paddingTop: 5)
+         
+     }
+     
+     
+     
+     @objc private func didPressGif() {
+         let generator = UIImpactFeedbackGenerator(style: .heavy)
+         generator.impactOccurred()
+         self.gifView.backgroundColor = .systemGray4
+         self.stickerView.backgroundColor = .clear
+         self.gifView.icon.tintColor = .white
+         self.stickerView.icon.tintColor = .systemGray2
     
-    
-    private func setupUIElements() {
-        self.layer.cornerRadius = 10
-        self.addSubview(iconstackView)
-        self.iconstackView.addArrangedSubview(stickerView)
-        self.iconstackView.addArrangedSubview(gifView)
-    }
-    
-    private func setupConstraints() {
-        self.iconstackView.centerX(inView: self, topAnchor: self.topAnchor, paddingTop: 5)
-        
-    }
-    
-    
-    
-    @objc private func didPressGif() {
-        let generator = UIImpactFeedbackGenerator(style: .heavy)
-        generator.impactOccurred()
-        self.gifView.backgroundColor = .systemGray4
-        self.stickerView.backgroundColor = .clear
-        self.gifView.icon.tintColor = .white
-        self.stickerView.icon.tintColor = .systemGray2
-   
-        
-    }
-    
-    @objc private func didPressSticker() {
-        let generator = UIImpactFeedbackGenerator(style: .heavy)
-        generator.impactOccurred()
-        self.stickerView.backgroundColor = .systemGray4
-        self.gifView.backgroundColor = .clear
-        self.gifView.icon.tintColor = .systemGray2
-        self.stickerView.icon.tintColor = .white
-    }
-    
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+         
+     }
+     
+     @objc private func didPressSticker() {
+         let generator = UIImpactFeedbackGenerator(style: .heavy)
+         generator.impactOccurred()
+         self.stickerView.backgroundColor = .systemGray4
+         self.gifView.backgroundColor = .clear
+         self.gifView.icon.tintColor = .systemGray2
+         self.stickerView.icon.tintColor = .white
+     }
+     
 }
