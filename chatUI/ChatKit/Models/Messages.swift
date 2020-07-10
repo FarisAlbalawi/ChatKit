@@ -20,16 +20,11 @@ enum MessageType: Int, Decodable {
     case text = 0
     case file
     case sticker
+    case gif
     case map
     case audio
     case caption
     
-}
-
-enum StickerType: Int, Decodable {
-    case emoji = 0
-    case sticker
-    case git
 }
 
 
@@ -45,8 +40,7 @@ public struct Messages {
     var text: String?
     var latitude: Double?
     var longitude: Double?
-    var stickerName: String?
-    var stickerType: StickerType?
+    var sticker: String?
     var image: UIImage?
     var audio: URL?
     let createdAt: Date!
@@ -105,13 +99,17 @@ public struct Messages {
     
     
 
-    /// Initialize emoji message
-    init(objectId: String,user: User,stickerName: String, StickerType: StickerType, createdAt: Date, isIncoming: Bool) {
+    /// Initialize sticker message
+    init(objectId: String,user: User,stickerName: String, createdAt: Date, isIncoming: Bool) {
         self.init(objectId: objectId,user: user ,type: .sticker, createdAt: createdAt, isIncoming: isIncoming)
-        self.stickerType = StickerType
-        self.stickerName = stickerName
+        self.sticker = stickerName
     }
     
+    /// Initialize gif message
+    init(objectId: String,user: User,gifName: String, createdAt: Date, isIncoming: Bool) {
+        self.init(objectId: objectId,user: user ,type: .gif, createdAt: createdAt, isIncoming: isIncoming)
+        self.sticker = gifName
+    }
     
     /// Initialize map message
     init(objectId: String,user: User,latitude: Double, longitude: Double, createdAt: Date, isIncoming: Bool) {
@@ -142,6 +140,8 @@ public struct Messages {
             return MessageAudioCell.reuseIdentifier
         case .caption:
             return MessageCaptionCell.reuseIdentifier
+        case .gif:
+            return MessageEmojiCell.reuseIdentifier
         }
     }
 }

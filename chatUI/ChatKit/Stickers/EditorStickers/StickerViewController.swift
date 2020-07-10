@@ -163,7 +163,7 @@ public class StickerViewController: UIViewController, UIGestureRecognizerDelegat
         stickerCollectioView.dataSource = self
         
         
-        self.stickerCollectioView.register(StickerCell.self, forCellWithReuseIdentifier: "cell")
+        self.stickerCollectioView.register(stickerCell.self, forCellWithReuseIdentifier: "cell")
         
         //-----------------------------------
         
@@ -354,7 +354,7 @@ extension StickerViewController: UICollectionViewDataSource, UICollectionViewDel
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let identifier = "cell"
         if collectionView == stickerCollectioView {
-            let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! StickerCell
+            let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! stickerCell
             cell.stickerImage.image = UIImage(named: stickers[indexPath.row])
             
             

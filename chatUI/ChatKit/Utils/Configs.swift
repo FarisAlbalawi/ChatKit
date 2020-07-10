@@ -11,7 +11,7 @@ import UIKit
 
 
 
- let screenSize: CGRect = UIScreen.main.bounds
+let screenSize: CGRect = UIScreen.main.bounds
 
 // MARK: DATE FROMAT FOR TIME HH:MM A
 func dateFormatTime(date : Date) -> String {

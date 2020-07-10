@@ -18,13 +18,9 @@ open class chatStickersUI: UIView {
         self.setupConstraints()
     }
     
-    
      func setupUIElements() {}
     
      func setupConstraints() {}
-    
-
-    
     
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

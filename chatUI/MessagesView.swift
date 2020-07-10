@@ -10,6 +10,8 @@ import UIKit
 
 
 class chatUI: MessagesUI {
+    var sgView = chatStickersView()
+    
     override var style: MessegesStyle {
         var style = ChatKit.Styles
             style.showingAvataer = false
@@ -21,8 +23,8 @@ class chatUI: MessagesUI {
     }
     
    override func updateUIElements() {
-        let view = chatStickersView()
-        self.stickersView = view
+        sgView.backgroundColor = .systemGray6
+        self.stickersView = sgView
     }
     
 }
@@ -61,6 +63,7 @@ class MessagesView: UIViewController {
         ui.parentViewController = self
         ui.dataSource = self
         ui.inputDelegate = self
+        ui.sgView.stickerGifDelegate = self
         view = ui
         ui.currentUser = MeFaris
         setNavigationBar()
@@ -190,7 +193,7 @@ extension MessagesView: inputDelegate {
     
     func SendEmoji(emoji: String) {
         let now = Date()
-        let NewMessages = Messages(objectId: "23223", user: MeFaris, stickerName: emoji, StickerType: .emoji, createdAt: now, isIncoming: false)
+        let NewMessages = Messages(objectId: "23223", user: MeFaris, stickerName: emoji, createdAt: now, isIncoming: false)
         self.insert(NewMessages)
     }
     
@@ -204,5 +207,17 @@ extension MessagesView: inputDelegate {
             self.insert(NewMessages)
         }
         
+    }
+}
+extension MessagesView: stickersGifDelegate {
+    func sendSticker(name: String) {
+        let now = Date()
+        let NewMessages = Messages(objectId: "23223", user: MeFaris, stickerName: name, createdAt: now, isIncoming: false)
+        self.insert(NewMessages)
+    }
+    func SendGif(name: String) {
+        let now = Date()
+        let NewMessages = Messages(objectId: "23223", user: MeFaris, gifName: name, createdAt: now, isIncoming: false)
+        self.insert(NewMessages)
     }
 }

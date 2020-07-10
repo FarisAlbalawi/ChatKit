@@ -1,14 +1,14 @@
 //
-//  StickerCell.swift
+//  stickerGifCell.swift
 //  chatUI
 //
-//  Created by Faris Albalawi on 4/28/20.
+//  Created by Faris Albalawi on 7/9/20.
 //  Copyright © 2020 Faris Albalawi. All rights reserved.
 //
 
 import UIKit
 
-class StickerCell: UICollectionViewCell {
+class stickerGifCell: UICollectionViewCell {
     
     var stickerImage = UIImageView()
     

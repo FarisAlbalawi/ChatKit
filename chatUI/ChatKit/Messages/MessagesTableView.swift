@@ -256,6 +256,8 @@ extension MessagesUI: UITableViewDelegate {
             return UIContextMenuConfiguration(identifier: identifier as NSCopying, previewProvider: nil) { _ -> UIMenu? in
                 return self.CaptionContextMenu(text: item.text!)
             }
+        case .gif:
+            print("gif")
         }
         
         return nil

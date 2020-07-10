@@ -36,8 +36,8 @@ class MessageEmojiCell: MessageCell {
     private func setupConstraints() {
          EmojiImageView.anchor(top: bubbleView.topAnchor,left: bubbleView.leftAnchor,bottom: bubbleView.bottomAnchor,
                                 right: bubbleView.rightAnchor,paddingTop: 10,paddingBottom: 10)
-        let width =  self.EmojiImageView.widthAnchor.constraint(lessThanOrEqualToConstant: 100)
-        let height = self.EmojiImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 100)
+        let width =  self.EmojiImageView.widthAnchor.constraint(lessThanOrEqualToConstant: 150)
+        let height = self.EmojiImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 150)
          width.priority = UILayoutPriority(999)
          height.priority = UILayoutPriority(999)
          NSLayoutConstraint.activate([width,height])
@@ -46,12 +46,15 @@ class MessageEmojiCell: MessageCell {
     }
     
     override func bind(withMessage message: Messages) {
+        if message.type == .gif {
+            let gif =  UIImage.gif(name: message.sticker!)
+            self.EmojiImageView.image = gif
+         } else {
+            self.EmojiImageView.image = UIImage(named: message.sticker!)
+         }
          let date = dateFormatTime(date: message.createdAt)
-         self.EmojiImageView.image = UIImage(named: message.stickerName!)
          self.messageStatusView.dateLab.text = date
-      
-        
-        tranformUI(message.isIncoming)
+         tranformUI(message.isIncoming)
     }
     
     override func tranformUI(_ isIncoming: Bool) {
