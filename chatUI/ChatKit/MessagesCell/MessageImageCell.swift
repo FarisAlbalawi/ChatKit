@@ -68,10 +68,4 @@ class MessageImageCell: MessageCell {
             
         }
     }
-
-    
-    
-
-    
-    
 }

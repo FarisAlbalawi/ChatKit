@@ -46,12 +46,7 @@ class MessageEmojiCell: MessageCell {
     }
     
     override func bind(withMessage message: Messages) {
-        if message.type == .gif {
-            let gif =  UIImage.gif(name: message.sticker!)
-            self.EmojiImageView.image = gif
-         } else {
-            self.EmojiImageView.image = UIImage(named: message.sticker!)
-         }
+         self.EmojiImageView.image = message.image
          let date = dateFormatTime(date: message.createdAt)
          self.messageStatusView.dateLab.text = date
          tranformUI(message.isIncoming)

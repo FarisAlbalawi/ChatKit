@@ -34,9 +34,9 @@ class AudioRecorder: NSObject {
         }
     }
     
-    private var audioRecorder: AVAudioRecorder! = nil
-    private var audioPlayer: AVAudioPlayer! = nil
-    private var meterTimer: Timer! = nil
+    private var audioRecorder: AVAudioRecorder!
+    private var audioPlayer: AVAudioPlayer!
+    private var meterTimer: Timer!
     private var currentTimeInterval: TimeInterval = 0.0
     
     var delegate: AudioRecorderDelegate?

@@ -192,8 +192,9 @@ extension MessagesView: inputDelegate {
     }
     
     func SendEmoji(emoji: String) {
+        let image = UIImage(named: emoji)!
         let now = Date()
-        let NewMessages = Messages(objectId: "23223", user: MeFaris, stickerName: emoji, createdAt: now, isIncoming: false)
+        let NewMessages = Messages(objectId: "23223", user: MeFaris, sticker: image, createdAt: now, isIncoming: false)
         self.insert(NewMessages)
     }
     
@@ -211,13 +212,15 @@ extension MessagesView: inputDelegate {
 }
 extension MessagesView: stickersGifDelegate {
     func sendSticker(name: String) {
+        let image = UIImage(named: name)!
         let now = Date()
-        let NewMessages = Messages(objectId: "23223", user: MeFaris, stickerName: name, createdAt: now, isIncoming: false)
+        let NewMessages = Messages(objectId: "23223", user: MeFaris, sticker: image, createdAt: now, isIncoming: false)
         self.insert(NewMessages)
     }
     func SendGif(name: String) {
+        let image = UIImage.gif(name: name)!
         let now = Date()
-        let NewMessages = Messages(objectId: "23223", user: MeFaris, gifName: name, createdAt: now, isIncoming: false)
+        let NewMessages = Messages(objectId: "23223", user: MeFaris, sticker: image, createdAt: now, isIncoming: false)
         self.insert(NewMessages)
     }
 }

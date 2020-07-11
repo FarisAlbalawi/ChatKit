@@ -220,8 +220,6 @@
 		644B2F0A24498014006D2FA5 /* Messages */ = {
 			isa = PBXGroup;
 			children = (
-				64615CC9249576DC00B09519 /* Style */,
-				644B2F0C24498033006D2FA5 /* MessagesViewModel.swift */,
 				644B2F0E24498033006D2FA5 /* MessagesUI.swift */,
 				64E443FB24510D4200DA8076 /* MessagesMenus.swift */,
 				64615C4B248ED93D00B09519 /* DataSource.swift */,
@@ -297,6 +295,7 @@
 		64615C44248E441700B09519 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				644B2F0C24498033006D2FA5 /* MessagesViewModel.swift */,
 				642502EC244E14F8002E1785 /* Messages.swift */,
 			);
 			path = Models;
@@ -313,6 +312,7 @@
 		646F6E2624B5406B00EA456D /* ChatKit */ = {
 			isa = PBXGroup;
 			children = (
+				64615CC9249576DC00B09519 /* Style */,
 				64E60478248575B8000FBBE8 /* Audio */,
 				64492B3B245911BB0001CA75 /* Stickers */,
 				644B2F24244982F1006D2FA5 /* Extensions */,

@@ -18,9 +18,8 @@ public struct User {
 
 enum MessageType: Int, Decodable {
     case text = 0
-    case file
+    case image
     case sticker
-    case gif
     case map
     case audio
     case caption
@@ -40,8 +39,8 @@ public struct Messages {
     var text: String?
     var latitude: Double?
     var longitude: Double?
-    var sticker: String?
     var image: UIImage?
+    var imageUrl: URL?
     var audio: URL?
     let createdAt: Date!
     var isIncoming: Bool = true
@@ -84,11 +83,18 @@ public struct Messages {
     }
     
     
-    /// Initialize file message
+    /// Initialize image message
     init(objectId: String,user: User,image: UIImage, createdAt: Date, isIncoming: Bool) {
-        self.init(objectId: objectId,user: user ,type: .file, createdAt: createdAt, isIncoming: isIncoming)
+        self.init(objectId: objectId,user: user ,type: .image, createdAt: createdAt, isIncoming: isIncoming)
         self.image = image
     }
+    
+    /// Initialize image url message
+    init(objectId: String,user: User,imageUrl: URL, createdAt: Date, isIncoming: Bool) {
+        self.init(objectId: objectId,user: user ,type: .image, createdAt: createdAt, isIncoming: isIncoming)
+        self.imageUrl = imageUrl
+    }
+    
     
     /// Initialize caption message
     init(objectId: String,user: User,image: UIImage,text: String?, createdAt: Date, isIncoming: Bool) {
@@ -100,16 +106,17 @@ public struct Messages {
     
 
     /// Initialize sticker message
-    init(objectId: String,user: User,stickerName: String, createdAt: Date, isIncoming: Bool) {
+    init(objectId: String,user: User,sticker: UIImage, createdAt: Date, isIncoming: Bool) {
         self.init(objectId: objectId,user: user ,type: .sticker, createdAt: createdAt, isIncoming: isIncoming)
-        self.sticker = stickerName
+        self.image = sticker
     }
     
-    /// Initialize gif message
-    init(objectId: String,user: User,gifName: String, createdAt: Date, isIncoming: Bool) {
-        self.init(objectId: objectId,user: user ,type: .gif, createdAt: createdAt, isIncoming: isIncoming)
-        self.sticker = gifName
+    /// Initialize sticker message url
+    init(objectId: String,user: User,stickerUrl: URL, createdAt: Date, isIncoming: Bool) {
+        self.init(objectId: objectId,user: user ,type: .sticker, createdAt: createdAt, isIncoming: isIncoming)
+        self.imageUrl = stickerUrl
     }
+    
     
     /// Initialize map message
     init(objectId: String,user: User,latitude: Double, longitude: Double, createdAt: Date, isIncoming: Bool) {
@@ -130,7 +137,7 @@ public struct Messages {
         switch type {
         case .text:
             return MessageTextCell.reuseIdentifier
-        case .file:
+        case .image:
             return MessageImageCell.reuseIdentifier
         case .sticker:
             return MessageEmojiCell.reuseIdentifier
@@ -140,8 +147,6 @@ public struct Messages {
             return MessageAudioCell.reuseIdentifier
         case .caption:
             return MessageCaptionCell.reuseIdentifier
-        case .gif:
-            return MessageEmojiCell.reuseIdentifier
         }
     }
 }

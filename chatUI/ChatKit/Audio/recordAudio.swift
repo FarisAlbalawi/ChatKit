@@ -70,7 +70,7 @@ class recordAudio: UIView, AVAudioRecorderDelegate {
     
     private var recordingSession: AVAudioSession!
     private var audioRecorder: AVAudioRecorder!
-    private var meterTimer: Timer! = nil
+    private var meterTimer: Timer!
     
     private var state: AudioRecorderState = .Ready
     private var recorder: AudioRecorder = AudioRecorder(withFileName: "recording.m4a")
