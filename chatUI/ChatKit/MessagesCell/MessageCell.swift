@@ -16,7 +16,7 @@ enum PositionInBlock {
 }
 
 
-class MessageCell: UITableViewCell {
+open class MessageCell: UITableViewCell {
     
      open var styles = ChatKit.Styles
     
@@ -60,7 +60,7 @@ class MessageCell: UITableViewCell {
      var leftConstrain: NSLayoutConstraint!
      var rightConstrain: NSLayoutConstraint!
     
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(stackView)
@@ -88,6 +88,7 @@ class MessageCell: UITableViewCell {
         rightConstrain = stackView.rightAnchor.constraint(equalTo: rightAnchor)
     }
     
+
     
    func setupUIElements() {}
     
@@ -100,7 +101,7 @@ class MessageCell: UITableViewCell {
     func tranformUI(_ isIncoming: Bool) {}
     
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -144,5 +145,5 @@ class MessageCell: UITableViewCell {
                bubbleView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMinXMaxYCorner]
            }
        }
-    
+
 }

@@ -1,8 +1,8 @@
 //
-//  recordAudio.swift
+//  recordAudioView.swift
 //  chatUI
 //
-//  Created by Faris Albalawi on 6/1/20.
+//  Created by Faris Albalawi on 7/15/20.
 //  Copyright © 2020 Faris Albalawi. All rights reserved.
 //
 
@@ -14,7 +14,7 @@ protocol recordDelegate {
     func AudioFile(_ url:URL)
 }
 
-class recordAudio: UIView, AVAudioRecorderDelegate {
+class recordAudioView: UIView, AVAudioRecorderDelegate {
     
     
     var delegate: recordDelegate?
@@ -153,7 +153,7 @@ class recordAudio: UIView, AVAudioRecorderDelegate {
     
 }
 
-extension recordAudio: AudioRecorderDelegate {
+extension recordAudioView: AudioRecorderDelegate {
     func audioRecorder(_ recorder: AudioRecorder, withStates state: AudioRecorderState) {
         switch state {
         case .error(let e): debugPrint(e)

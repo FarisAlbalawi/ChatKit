@@ -132,11 +132,14 @@ open class MessagesUI : UIView {
     
     
     /// ------------------------------------
-    private var recordAudioView: recordAudio = {
-        let view = recordAudio()
+    private var recordAudioV: recordAudioView = {
+        let view = recordAudioView()
         view.backgroundColor = .systemGray6
         return view
     }()
+    
+    /// ------------------------------------
+     var typingBubble = TypingBubbleView()
     
     
     /// ------------------------------------
@@ -183,7 +186,7 @@ open class MessagesUI : UIView {
    private var isKeybordShowing = false
    private var isAudioViewShowing = false
    private var keyboardHeight = CGFloat()
-    
+
     // variable
     private var imagePicker: ImagePicker!
     var parentViewController: UIViewController? = nil
@@ -203,6 +206,17 @@ open class MessagesUI : UIView {
         addObserver()
         
     }
+    
+    deinit {
+        removeObservers()
+    }
+    
+    // MARK: - Helpers
+    
+    private func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
+    }
+
     
     func updateUIElements() {}
     
@@ -314,7 +328,7 @@ open class MessagesUI : UIView {
          self.mediaButton.isEnabled = false
          self.moreButton.isEnabled = false
 
-        self.recordAudioView.isHidden = true
+        self.recordAudioV.isHidden = true
         self.stickersView.isHidden = true
          
         if isKeybordShowing {
@@ -341,17 +355,17 @@ open class MessagesUI : UIView {
         self.moreButton.isEnabled = false
         
         
-        recordAudioView.isHidden = true
+        recordAudioV.isHidden = true
         stickersView.isHidden = true
         
        if isKeybordShowing {
-            self.recordAudioView.isHidden = false
+            self.recordAudioV.isHidden = false
             self.endEditing(true)
             self.tableView.scrollToBottomRow(animated: false)
             self.layoutIfNeeded()
             
         } else {
-            self.recordAudioView.isHidden = false
+            self.recordAudioV.isHidden = false
             self.tableView.scrollToBottomRow(animated: false)
             UIView.animate(withDuration: 0.3) {
              self.layoutIfNeeded()
@@ -384,11 +398,11 @@ extension MessagesUI {
         addSubview(stackView)
         stackView.addArrangedSubview(lineboardView)
         stackView.addArrangedSubview(inputToolbar)
-        stackView.addArrangedSubview(recordAudioView)
+        stackView.addArrangedSubview(recordAudioV)
         stackView.addArrangedSubview(stickersView)
         
        /// ------------------------------------
-        recordAudioView.delegate = self
+        recordAudioV.delegate = self
     
         /// ------------------------------------
         inputToolbar.addSubview(messageTextView)
@@ -423,17 +437,22 @@ extension MessagesUI {
     
     private func setupConstraints() {
 
+      
+        
+        typingBubble.frame = CGRect(x: 0, y: 0, width: 200, height: 80)
+        typingBubble.typingBubble.startAnimating()
+        self.tableView.tableFooterView = typingBubble
         
         /// ------------------------------------
         let height = self.safeAreaInsets.bottom
-        recordAudioView.anchor(left: stackView.leftAnchor,right:stackView.rightAnchor,height:keyboardHeight - height)
+        recordAudioV.anchor(left: stackView.leftAnchor,right:stackView.rightAnchor,height:keyboardHeight - height)
         
         /// ------------------------------------
         stickersView.anchor(left: stackView.leftAnchor,right:stackView.rightAnchor,height:keyboardHeight - height)
         
         /// ------------------------------------
         inputToolbar.anchor(left: stackView.leftAnchor,right:stackView.rightAnchor)
-        recordAudioView.isHidden = true
+        recordAudioV.isHidden = true
         stickersView.isHidden = true
        
         /// ------------------------------------
@@ -493,7 +512,7 @@ extension MessagesUI {
     @objc open dynamic func keyboardWillShow(_ notification: Notification) {
            self.restButton()
            self.isKeybordShowing = true
-           self.recordAudioView.isHidden = true
+           self.recordAudioV.isHidden = true
            self.stickersView.isHidden = true
            self.layoutIfNeeded()
            self.tableView.scrollToBottomRow(animated: false)
@@ -591,7 +610,7 @@ extension MessagesUI: GrowingTextViewDelegate, UITextViewDelegate {
 
             self.tableView.scrollToBottom(animated: false)
             self.tableView.layoutIfNeeded()
-            self.tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentSize.height - tableView.frame.height - 20), animated: false)
+            self.tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentSize.height - tableView.frame.height), animated: false)
              self.layoutIfNeeded()
            
          }

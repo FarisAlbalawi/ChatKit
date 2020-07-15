@@ -20,6 +20,8 @@ extension MessagesUI: UITableViewDataSource {
         return 40
     }
     
+
+    
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let message = dataSource?.headerTitle(for: section) else {
                    fatalError("Message not defined for \(section)")
@@ -91,15 +93,10 @@ extension MessagesUI: UITableViewDataSource {
         return cell
     }
     
+    
+    
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-    }
-    
-    
-    func updateCell(path: IndexPath){
-        tableView.beginUpdates()
-        tableView.reloadRows(at: [path], with: .none) //try other animations
-        tableView.endUpdates()
     }
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

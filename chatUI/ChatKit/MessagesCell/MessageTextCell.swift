@@ -28,7 +28,7 @@ class MessageTextCell: MessageCell {
             }
         }
 
-        messageLabel.font = UIFont.systemFont(ofSize: 15)
+        messageLabel.font = UIFont.systemFont(ofSize: 16)
         messageLabel.textAlignment = .natural
         messageLabel.numberOfLines = 0
         messageLabel.lineSpacing = 2

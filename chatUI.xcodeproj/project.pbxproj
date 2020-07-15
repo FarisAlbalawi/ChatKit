@@ -59,6 +59,9 @@
 		646F6E7724B7AB1800EA456D /* gif10.gif in Resources */ = {isa = PBXBuildFile; fileRef = 646F6E6B24B7AB1800EA456D /* gif10.gif */; };
 		649E9F1724685B4F00F06127 /* SwiftGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649E9F1624685B4F00F06127 /* SwiftGif.swift */; };
 		649E9F1924685B7400F06127 /* GifCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649E9F1824685B7400F06127 /* GifCell.swift */; };
+		64A005D924BE53D3000026FE /* MessagesTableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A005D824BE53D3000026FE /* MessagesTableViews.swift */; };
+		64A005DD24BF8631000026FE /* TypingBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A005DC24BF8631000026FE /* TypingBubble.swift */; };
+		64A005DF24BFA94B000026FE /* recordAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A005DE24BFA94B000026FE /* recordAudioView.swift */; };
 		64BED1D8245797C600C5BC44 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BED1D7245797C600C5BC44 /* Keyboard.swift */; };
 		64BED1DB24579A9E00C5BC44 /* CropPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BED1DA24579A9E00C5BC44 /* CropPickerView.swift */; };
 		64BED1DD2457D24100C5BC44 /* ViewGestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BED1DC2457D24100C5BC44 /* ViewGestures.swift */; };
@@ -75,7 +78,6 @@
 		64E444142452612300DA8076 /* TouchDrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E444132452612300DA8076 /* TouchDrawView.swift */; };
 		64E444162452612F00DA8076 /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E444152452612F00DA8076 /* Stroke.swift */; };
 		64E6047724845070000FBBE8 /* quickEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E6047624845070000FBBE8 /* quickEmojiView.swift */; };
-		64E6047A248575D9000FBBE8 /* recordAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E60479248575D9000FBBE8 /* recordAudio.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,6 +135,9 @@
 		646F6E6B24B7AB1800EA456D /* gif10.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gif10.gif; sourceTree = "<group>"; };
 		649E9F1624685B4F00F06127 /* SwiftGif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGif.swift; sourceTree = "<group>"; };
 		649E9F1824685B7400F06127 /* GifCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifCell.swift; sourceTree = "<group>"; };
+		64A005D824BE53D3000026FE /* MessagesTableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViews.swift; sourceTree = "<group>"; };
+		64A005DC24BF8631000026FE /* TypingBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingBubble.swift; sourceTree = "<group>"; };
+		64A005DE24BFA94B000026FE /* recordAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recordAudioView.swift; sourceTree = "<group>"; };
 		64BED1D7245797C600C5BC44 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		64BED1DA24579A9E00C5BC44 /* CropPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropPickerView.swift; sourceTree = "<group>"; };
 		64BED1DC2457D24100C5BC44 /* ViewGestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewGestures.swift; sourceTree = "<group>"; };
@@ -150,7 +155,6 @@
 		64E444132452612300DA8076 /* TouchDrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchDrawView.swift; sourceTree = "<group>"; };
 		64E444152452612F00DA8076 /* Stroke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stroke.swift; sourceTree = "<group>"; };
 		64E6047624845070000FBBE8 /* quickEmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quickEmojiView.swift; sourceTree = "<group>"; };
-		64E60479248575D9000FBBE8 /* recordAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recordAudio.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,6 +316,7 @@
 		646F6E2624B5406B00EA456D /* ChatKit */ = {
 			isa = PBXGroup;
 			children = (
+				64A005D724BE53B9000026FE /* MessagesTableViews */,
 				64615CC9249576DC00B09519 /* Style */,
 				64E60478248575B8000FBBE8 /* Audio */,
 				64492B3B245911BB0001CA75 /* Stickers */,
@@ -362,6 +367,14 @@
 			path = gif;
 			sourceTree = "<group>";
 		};
+		64A005D724BE53B9000026FE /* MessagesTableViews */ = {
+			isa = PBXGroup;
+			children = (
+				64A005D824BE53D3000026FE /* MessagesTableViews.swift */,
+			);
+			path = MessagesTableViews;
+			sourceTree = "<group>";
+		};
 		64BED1D924579A9300C5BC44 /* Crop */ = {
 			isa = PBXGroup;
 			children = (
@@ -397,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				64E6047624845070000FBBE8 /* quickEmojiView.swift */,
+				64A005DC24BF8631000026FE /* TypingBubble.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -404,8 +418,8 @@
 		64E60478248575B8000FBBE8 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				64E60479248575D9000FBBE8 /* recordAudio.swift */,
 				64615C422488252F00B09519 /* AudioRecorder.swift */,
+				64A005DE24BFA94B000026FE /* recordAudioView.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -499,6 +513,7 @@
 				64E443F82450C76300DA8076 /* Configs.swift in Sources */,
 				642502ED244E14F8002E1785 /* Messages.swift in Sources */,
 				64615C432488252F00B09519 /* AudioRecorder.swift in Sources */,
+				64A005DD24BF8631000026FE /* TypingBubble.swift in Sources */,
 				644B2F1C244980E3006D2FA5 /* MessageImageCell.swift in Sources */,
 				64674E4D244CC16400E77AFB /* UILabel+Extension .swift in Sources */,
 				64E443F62450BD8400DA8076 /* MessageStatusView.swift in Sources */,
@@ -515,6 +530,8 @@
 				64E444122452611700DA8076 /* StrokeSettings.swift in Sources */,
 				644B2F2624498396006D2FA5 /* GrowingTextView.swift in Sources */,
 				644B2F1E24498104006D2FA5 /* MessageEmojiCell.swift in Sources */,
+				64A005DF24BFA94B000026FE /* recordAudioView.swift in Sources */,
+				64A005D924BE53D3000026FE /* MessagesTableViews.swift in Sources */,
 				64E443FA2450FF0A00DA8076 /* BlurImageView.swift in Sources */,
 				64E443FF2451F60400DA8076 /* ImagePicker.swift in Sources */,
 				64674E49244AD9DE00E77AFB /* DateHeader.swift in Sources */,
@@ -528,7 +545,6 @@
 				644B2EF724497FFE006D2FA5 /* AppDelegate.swift in Sources */,
 				6450A8A7249989420013C8CE /* chatStickersUI.swift in Sources */,
 				644B2F2024498115006D2FA5 /* MessageMapCell.swift in Sources */,
-				64E6047A248575D9000FBBE8 /* recordAudio.swift in Sources */,
 				644B2EF924497FFE006D2FA5 /* SceneDelegate.swift in Sources */,
 				64492B44245912360001CA75 /* stickerCell.swift in Sources */,
 				644B2F2224498129006D2FA5 /* MessageAudioCell.swift in Sources */,

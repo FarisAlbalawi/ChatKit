@@ -10,14 +10,17 @@ import UIKit
 import AVFoundation
 
 
-class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
+open class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
 
   static var reuseIdentifier = "MessageAudioCell"
     
-   private let slider : UISlider = {
+
+    let progressSlider: UISlider = {
         let slider = UISlider()
-        slider.maximumValue = 1000
-        slider.minimumValue = 0
+        slider.thumbTintColor = .white
+        let newImage = slider.thumbImage(for: .normal)!.generateNewImage(scaledToSize: CGSize(width: 5, height: 5))
+        slider.setThumbImage(newImage, for: .normal)
+        slider.isContinuous = true
         return slider
     }()
     
@@ -49,16 +52,16 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
     private var audioPlayer: AVAudioPlayer?
 
     private var url: URL?
-    override func prepareForReuse() {
+    open override func prepareForReuse() {
          super.prepareForReuse()
       
      }
     
     override func setupUIElements() {
         self.playBtn.addTarget(self, action: #selector(play_pause), for: UIControl.Event.touchUpInside)
-        self.slider.addTarget(self, action: #selector(sliderPlayer), for: .touchDragInside)
+        self.progressSlider.addTarget(self, action: #selector(sliderPlayer), for: .touchDragInside)
         self.bubbleView.addSubview(playBtn)
-        self.bubbleView.addSubview(slider)
+        self.bubbleView.addSubview(progressSlider)
         self.bubbleView.addSubview(time)
         self.bubbleView.addSubview(totalTime)
         self.setupConstraints()
@@ -66,10 +69,12 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
     
     private func setupConstraints() {
         bubbleView.anchor(width:bounds.width - 40 )
-        playBtn.anchor(top:bubbleView.topAnchor,left:bubbleView.leftAnchor,paddingTop:10,paddingLeft: 10,width: 30,height: 30)
-        slider.anchor(top:bubbleView.topAnchor,left: playBtn.rightAnchor,right: bubbleView.rightAnchor,paddingTop:10,paddingLeft:10,paddingRight: 10 )
-        time.anchor(top:slider.bottomAnchor,left: playBtn.rightAnchor,bottom:bubbleView.bottomAnchor,paddingTop: 5,paddingLeft: 10,paddingBottom: 10)
-        totalTime.anchor(top:slider.bottomAnchor,bottom:bubbleView.bottomAnchor,right:bubbleView.rightAnchor ,paddingTop: 5,paddingBottom:10, paddingRight: 10)
+        playBtn.anchor(top:bubbleView.topAnchor,left:bubbleView.leftAnchor,paddingTop:5,paddingLeft: 10,width: 30,height: 30)
+        
+        progressSlider.anchor(top:bubbleView.topAnchor,left: playBtn.rightAnchor,right: bubbleView.rightAnchor,paddingTop:15,paddingLeft:10,paddingRight: 10 )
+        
+        time.anchor(top:progressSlider.bottomAnchor,left: playBtn.rightAnchor,bottom:bubbleView.bottomAnchor,paddingTop: 10,paddingLeft: 10,paddingBottom: 5)
+        totalTime.anchor(top:progressSlider.bottomAnchor,bottom:bubbleView.bottomAnchor,right:bubbleView.rightAnchor ,paddingTop: 10,paddingBottom:5, paddingRight: 10)
         
         
     }
@@ -96,9 +101,11 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
     
     override func tranformUI(_ isIncoming: Bool) {
         super.tranformUI(isIncoming)
+        
         if isIncoming {
+            progressSlider.thumbTintColor = .black()
             playBtn.tintColor = .black()
-            slider.tintColor = .black()
+            progressSlider.tintColor = .black()
             time.textColor = .black()
             totalTime.textColor = .black()
             bubbleView.backgroundColor = .systemGray6
@@ -108,8 +115,9 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
             messageStatusView.setupConstraints(.left)
             messageStatusView.layoutIfNeeded()
         } else {
+            progressSlider.thumbTintColor = .white
             playBtn.tintColor = .white
-            slider.tintColor = .white
+            progressSlider.tintColor = .white
             time.textColor = .white
             totalTime.textColor = .white
             bubbleView.backgroundColor = .mainBlue
@@ -119,6 +127,10 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
             messageStatusView.setupConstraints(.right)
             messageStatusView.layoutIfNeeded()
         }
+        
+        
+        let newImage = progressSlider.thumbImage(for: .normal)!.generateNewImage(scaledToSize: CGSize(width: 5, height: 5))
+        progressSlider.setThumbImage(newImage, for: .normal)
     }
     
     
@@ -144,24 +156,24 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
         guard let player = audioPlayer else {return}
         if player.isPlaying {
             player.stop()
-            player.currentTime =  TimeInterval(slider.value)
+            player.currentTime =  TimeInterval(progressSlider.value)
             player.play()
         }else{
-            player.currentTime = TimeInterval(slider.value)
+            player.currentTime = TimeInterval(progressSlider.value)
         }
     }
     
     func updateTime() {
          guard let player = audioPlayer else {return}
          Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
-         slider.maximumValue = Float(player.duration)
+         progressSlider.maximumValue = Float(player.duration)
          totalTime.text = stringFormatterTimeInterval(interval: player.duration) as String
      }
     
     @objc func update (_timer : Timer ) {
          guard let player = audioPlayer else {return}
-        slider.value = Float(player.currentTime)
-        time.text =  stringFormatterTimeInterval(interval: TimeInterval(slider.value)) as String
+        progressSlider.value = Float(player.currentTime)
+        time.text =  stringFormatterTimeInterval(interval: TimeInterval(progressSlider.value)) as String
     }
     
     func stringFormatterTimeInterval(interval : TimeInterval) ->NSString {
@@ -171,7 +183,7 @@ class MessageAudioCell: MessageCell, AVAudioPlayerDelegate {
         return NSString(format: "%0.2d:%0.2d", minutes,second)
     }
     
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool){
+    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool){
          guard let player = audioPlayer else {return}
         if flag == true {
            self.playBtn.setImage(UIImage(named: "play_icon")?.withRenderingMode(.alwaysTemplate), for: .normal)

@@ -46,6 +46,12 @@ extension UITableView {
         let row = indexPath.row
         return section < self.numberOfSections && row < self.numberOfRows(inSection: section)
     }
+    
+    func typingScrollToBottom() {
+        let footerBounds = self.tableFooterView?.bounds
+        let footerRectInTable = self.convert(footerBounds!, from: self.tableFooterView!)
+        self.scrollRectToVisible(footerRectInTable, animated: true)
+    }
 }
 
 extension UITableView {
