@@ -50,7 +50,6 @@ public struct LinkResult {
   public let detectionType: ContextLabel.LinkDetectionType
   public let range: NSRange
   public let text: String
-  public let textLink: TextLink?
 }
 
 public struct TouchResult {
@@ -58,22 +57,6 @@ public struct TouchResult {
   public let touches: Set<UITouch>
   public let event: UIEvent?
   public let state: UIGestureRecognizer.State
-}
-
-public struct TextLink {
-  public let text: String
-  public let range: NSRange?
-  public let options: NSString.CompareOptions
-  public let object: Any?
-  public let action: ()->()
-  
-  public init(text: String, range: NSRange? = nil, options: NSString.CompareOptions = [], object: Any? = nil, action: @escaping ()->()) {
-    self.text = text
-    self.range = range
-    self.options = options
-    self.object = object
-    self.action = action
-  }
 }
 
 protocol ContextLabelDelegate: class {
@@ -101,7 +84,6 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
     case hashtag
     case url
     case email
-    case textLink
     case phoneNumber
   }
 
@@ -123,8 +105,6 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
     case .hashtag:
       return UIColor(red: 151.0/255.0, green: 154.0/255.0, blue: 158.0/255.0, alpha: 1.0)
     case .url, .email:
-      return UIColor(red: 45.0/255.0, green: 113.0/255.0, blue: 178.0/255.0, alpha: 1.0)
-    case .textLink:
       return UIColor(red: 45.0/255.0, green: 113.0/255.0, blue: 178.0/255.0, alpha: 1.0)
     case .phoneNumber:
       return UIColor(red: 45.0/255.0, green: 113.0/255.0, blue: 178.0/255.0, alpha: 1.0)
@@ -180,32 +160,12 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
   }
   
   // linkDetectionTypes
-  public var linkDetectionTypes: [LinkDetectionType] = [.userHandle, .hashtag, .url, .textLink, .email, .phoneNumber] {
+  public var linkDetectionTypes: [LinkDetectionType] = [.userHandle, .hashtag, .url, .email, .phoneNumber] {
     didSet {
       setContextLabelDataWithText(nil)
     }
   }
   
-  // Array of link texts
-  public var textLinks: [TextLink]? {
-    didSet {
-      if let textLinks = textLinks {
-        if let contextLabelData = contextLabelData {
-          
-          // Add linkResults for textLinks
-          let linkResults = linkResultsForTextLinks(textLinks)
-          contextLabelData.linkResults += linkResults
-          
-          // Addd attributes for textLinkResults
-          let attributedString = addLinkAttributesTo(contextLabelData.attributedString, with: linkResults)
-          contextLabelData.attributedString = attributedString
-          
-          // Set attributedText
-          attributedText = contextLabelData.attributedString
-        }
-      }
-    }
-  }
   
   // Selected linkResult
   fileprivate var selectedLinkResult: LinkResult?
@@ -408,7 +368,6 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
       } else {
         didTouch(touchResult)
       }
-      selectedLinkResult.textLink?.action()
     } else {
       let touchResult = TouchResult(linkResult: nil, touches: touches, event: event, state: .ended)
       if let delegate = delegate {
@@ -482,10 +441,6 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
     return nil
   }
   
-  open func setText(_ text:String, withTextLinks textLinks: [TextLink]) {
-    self.text = text // calls setContextLabelDataWithText(text)
-    self.textLinks = textLinks
-  }
   
   open func attributesFromProperties() -> [NSAttributedString.Key : Any] {
     
@@ -571,10 +526,7 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
   // Returns array of link results for all special words, user handles, hashtags and urls
   fileprivate func linkResults(in attributedString: NSAttributedString) -> [LinkResult] {
     var linkResults = [LinkResult]()
-    
-    if let textLinks = textLinks {
-      linkResults += linkResultsForTextLinks(textLinks)
-    }
+
     
     if linkDetectionTypes.contains(.userHandle) {
       linkResults += linkResultsForUserHandles(inString: attributedString.string)
@@ -594,46 +546,6 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
     
     if linkDetectionTypes.contains(.phoneNumber) {
         linkResults += linkResultsForPhoneNumbers(inAttributedString: attributedString)
-    }
-    
-    return linkResults
-  }
-  
-  // TEST: testLinkResultsForTextLinksWithoutEmojis()
-  // TEST: testLinkResultsForTextLinksWithEmojis()
-  // TEST: testLinkResultsForTextLinksWithMultipleOccuranciesWithoutRange()
-  // TEST: testLinkResultsForTextLinksWithMultipleOccuranciesWithRange()
-  internal func linkResultsForTextLinks(_ textLinks: [TextLink]) -> [LinkResult] {
-    guard let text = self.text else {
-      return []
-    }
-    
-    var linkResults: [LinkResult] = []
-    
-    for textLink in textLinks {
-      let linkType = LinkDetectionType.textLink
-      let matchString = textLink.text
-      
-      let range = textLink.range ?? NSMakeRange(0, text.count)
-      
-      var searchRange = range
-      var matchRange = NSRange()
-      let nsString = NSString(string: text)
-      if nsString.length >= range.location + range.length {
-        while matchRange.location != NSNotFound  {
-          matchRange = NSString(string: text).range(of: matchString, options: textLink.options, range: searchRange)
-          if matchRange.location != NSNotFound && (matchRange.location + matchRange.length) <= (range.location + range.length) {
-            linkResults.append(LinkResult(detectionType: linkType, range: matchRange, text: matchString, textLink: textLink))
-            
-            // Remaining searchRange
-            let location = matchRange.location + matchRange.length
-            let length = nsString.length - location
-            searchRange = NSMakeRange(location, length)
-          } else {
-            break
-          }
-        }
-      }
     }
     
     return linkResults
@@ -668,7 +580,7 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
       let matchString = NSString(string: text).substring(with: matchRange)
       
       if matchRange.length > 1 {
-        linkResults.append(LinkResult(detectionType: linkType, range: matchRange, text: matchString, textLink: nil))
+        linkResults.append(LinkResult(detectionType: linkType, range: matchRange, text: matchString))
       }
     }
     
@@ -696,7 +608,7 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
               let matchRange = match.range
               if let range = plainText.rangeFromNSRange(matchRange) {
                   let phoneNumber = String(plainText[range])
-                  linkResults.append(LinkResult(detectionType: .phoneNumber, range: matchRange, text: phoneNumber, textLink: nil))
+                  linkResults.append(LinkResult(detectionType: .phoneNumber, range: matchRange, text: phoneNumber))
               }
           }
       }
@@ -736,9 +648,9 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
         if match.resultType == .link {
           if let matchString = realURL as? String {
             if match.url?.scheme == "mailto" {
-              linkResults.append(LinkResult(detectionType: .email, range: matchRange, text: matchString, textLink: nil))
+              linkResults.append(LinkResult(detectionType: .email, range: matchRange, text: matchString))
             } else {
-              linkResults.append(LinkResult(detectionType: .url, range: matchRange, text: matchString, textLink: nil))
+              linkResults.append(LinkResult(detectionType: .url, range: matchRange, text: matchString))
             }
           }
         }

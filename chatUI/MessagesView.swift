@@ -101,7 +101,7 @@ class MessagesView: UIViewController {
         
          DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.ui.setUsersTyping([self.userFaris])
-            self.ui.tableView.setContentOffset(CGPoint(x: 0, y: self.ui.tableView.contentSize.height - self.ui.tableView.frame.height), animated: false)
+            self.ui.tableView.setContentOffset(CGPoint(x: 0, y: self.ui.tableView.contentSize.height - self.ui.tableView.frame.height), animated: true)
             }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
@@ -143,9 +143,9 @@ class MessagesView: UIViewController {
                  }
                self.ui.tableView.setContentOffset(loc, animated: true)
                DispatchQueue.main.async {
-                    self.ui.tableView.scrollToBottom(animated: false)
+                    self.ui.tableView.scrollToBottom(animated: true)
                     self.ui.tableView.layoutIfNeeded()
-                    self.ui.tableView.setContentOffset(CGPoint(x: 0, y: self.ui.tableView.contentSize.height - self.ui.tableView.frame.height - 20), animated: false)
+                    self.ui.tableView.setContentOffset(CGPoint(x: 0, y: self.ui.tableView.contentSize.height - self.ui.tableView.frame.height - 20), animated: true)
                }
              
          } else {
@@ -162,9 +162,9 @@ class MessagesView: UIViewController {
               }
              self.ui.tableView.setContentOffset(loc, animated: true)
              DispatchQueue.main.async {
-                 self.ui.tableView.scrollToBottom(animated: false)
+                 self.ui.tableView.scrollToBottom(animated: true)
                  self.ui.tableView.layoutIfNeeded()
-                 self.ui.tableView.setContentOffset(CGPoint(x: 0, y: self.ui.tableView.contentSize.height - self.ui.tableView.frame.height), animated: false)
+                 self.ui.tableView.setContentOffset(CGPoint(x: 0, y: self.ui.tableView.contentSize.height - self.ui.tableView.frame.height), animated: true)
              }
             
   
@@ -192,6 +192,8 @@ extension MessagesView: DataSource {
     func numberOfMessages(in section: Int) -> Int {
         return self.messagesData[section].count
     }
+    
+
     
 }
 
@@ -235,6 +237,14 @@ extension MessagesView {
 
 
 extension MessagesView: inputDelegate {
+    
+    func startTyping() {
+        print("Debug: start Typing")
+    }
+    
+    func stopTyping() {
+        print("Debug: stop Typing")
+    }
     
     func sendText(text: String) {
         let now = Date()

@@ -14,20 +14,7 @@ class MessageTextCell: MessageCell {
    static var reuseIdentifier = "MessageTextCell"
     
    private lazy var messageLabel: ContextLabel = {
-        let messageLabel = ContextLabel(frame: .zero, didTouch: { (touchResult) in
-            self.contextLabel(didTouchWithTouchResult: touchResult)
-        })
-
-        // Custoim Underline Style
-        messageLabel.underlineStyle = { (linkResult) in
-            switch linkResult.detectionType {
-            case .url, .email, .phoneNumber:
-                return .single
-            default:
-                return []
-            }
-        }
-
+        let messageLabel = ContextLabel()
         messageLabel.font = UIFont.systemFont(ofSize: 16)
         messageLabel.textAlignment = .natural
         messageLabel.numberOfLines = 0
@@ -39,20 +26,13 @@ class MessageTextCell: MessageCell {
     
     override func prepareForReuse() {
          super.prepareForReuse()
-        messageLabel.text = nil
-        messageLabel.underlineStyle = { (linkResult) in
-            switch linkResult.detectionType {
-                case .url, .email, .phoneNumber:
-                 return .single
-                default:
-                 return []
-             }
-         }
+         messageLabel.attributedText = nil
          messageLabel.text = nil
         
      }
     
     override func setupUIElements() {
+        messageLabel.delegate = self
         bubbleView.addSubview(messageLabel)
         messageLabel.preferredMaxLayoutWidth = bounds.width - 40
         setupConstraints()
@@ -79,10 +59,6 @@ class MessageTextCell: MessageCell {
           if isIncoming {
               
               messageLabel.textColor = styles.incomingTextColor
-              messageLabel.foregroundHighlightedColor = { (linkResult) in return self.styles.incomingTextColor }
-              messageLabel.foregroundColor = { (linkResult) in return self.styles.incomingTextColor }
-        
-            
               bubbleView.backgroundColor = styles.incomingBubbleColor
               leftConstrain.isActive = true
               rightConstrain.isActive = false
@@ -93,8 +69,6 @@ class MessageTextCell: MessageCell {
           } else {
         
               messageLabel.textColor = styles.outgoingTextColor
-              messageLabel.foregroundHighlightedColor = { (linkResult) in return self.styles.outgoingTextColor }
-              messageLabel.foregroundColor = { (linkResult) in return self.styles.outgoingTextColor }
               bubbleView.backgroundColor = styles.outgoingBubbleColor
               leftConstrain.isActive = false
               rightConstrain.isActive = true
@@ -104,31 +78,54 @@ class MessageTextCell: MessageCell {
           }
 
       }
-    
-    
 
+}
+
+
+extension MessageTextCell :ContextLabelDelegate {
+    func contextLabel(_ sender: ContextLabel, textFontForLinkResult linkResult: LinkResult) -> UIFont {
+        return UIFont.systemFont(ofSize: 16)
+    }
     
-   private func contextLabel(didTouchWithTouchResult touchResult: TouchResult) {
-        guard let textLink = touchResult.linkResult else { return }
-        switch touchResult.state {
-        case .ended:
-            switch textLink.detectionType {
-            case .url:
-                print("url \(textLink.text)")
-            case .email:
-                print("email \(textLink.text)")
-            case .phoneNumber:
-                print("phoneNumber \(textLink.text)")
-            default:
-                print("default")
-            }
-            
-        default:
-            break
-        }
+    func contextLabel(_ sender: ContextLabel, foregroundColorForLinkResult linkResult: LinkResult) -> UIColor {
+        return .lightGray
+    }
+    
+    func contextLabel(_ sender: ContextLabel, foregroundHighlightedColorForLinkResult linkResult: LinkResult) -> UIColor {
+        return .lightGray
+    }
+    
+    func contextLabel(_ sender: ContextLabel, underlineStyleForLinkResult linkResult: LinkResult) -> NSUnderlineStyle {
+        return .single
+    }
+    
+    func contextLabel(_ sender: ContextLabel, modifiedAttributedString attributedString: NSAttributedString) -> NSAttributedString {
+        return attributedString
+    }
+    
+    func contextLabel(_ sender: ContextLabel, didTouchWithTouchResult touchResult: TouchResult) {
+         guard let textLink = touchResult.linkResult else { return }
+         switch touchResult.state {
+           case .ended:
+               switch textLink.detectionType {
+               case .url:
+                   print("url \(textLink.text)")
+               case .email:
+                   print("email \(textLink.text)")
+               case .phoneNumber:
+                   print("phoneNumber \(textLink.text)")
+               default:
+                   print("default")
+               }
+               
+           default:
+               break
+           }
+    }
+    
+    func contextLabel(_ sender: ContextLabel, didCopy text: String?) {
+        
     }
     
     
-    
-
 }

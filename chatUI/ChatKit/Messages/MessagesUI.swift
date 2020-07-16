@@ -13,7 +13,6 @@ import UIKit
     @objc optional func SendImage(image: UIImage, caption: String?)
     @objc optional func SendAudio(url: URL)
     @objc optional func SendEmoji(emoji: String)
-    
     @objc optional func startTyping()
     @objc optional func stopTyping()
     
@@ -649,7 +648,7 @@ extension MessagesUI: GrowingTextViewDelegate, UITextViewDelegate {
         guard users.count > 0 else {
             typingBubble.typingLabel.text = nil
             self.tableView.tableFooterView  = nil
-            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.height - 20), animated: false)
+            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.height), animated: true)
             return
         }
         
