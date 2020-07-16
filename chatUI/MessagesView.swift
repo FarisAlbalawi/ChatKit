@@ -32,8 +32,8 @@ class chatUI: MessagesUI {
 class MessagesView: UIViewController {
     
     
-    let MeFaris = User(userId: "1", fullname: "Faris", avatar: #imageLiteral(resourceName: "audio_icon"))
-    let Tim = User(userId: "2", fullname: "Tim", avatar: #imageLiteral(resourceName: "emoji_3"))
+    let userTim = User(userId: "1", fullname: "Time", avatar: #imageLiteral(resourceName: "audio_icon"))
+    let userFaris = User(userId: "2", fullname: "Faris", avatar: #imageLiteral(resourceName: "emoji_3"))
     let goh = User(userId: "3", fullname: "goh", avatar: #imageLiteral(resourceName: "emoji_3"))
     
     let image1 = UIImage(named: "image1")
@@ -66,14 +66,14 @@ class MessagesView: UIViewController {
         ui.sgView.stickerGifDelegate = self
         view = ui
     
-        ui.currentUser = MeFaris
+        ui.currentUser = userTim
         setNavigationBar()
         // test array
          let messagesFromServer = [
             
-            Messages(objectId: "1331", user: MeFaris, image: image1!, text: "text", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: false),
+            Messages(objectId: "1331", user: userTim, image: image1!, text: "text", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: false),
             
-            Messages(objectId: "1323", user: MeFaris, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: false),
+            Messages(objectId: "1323", user: userTim, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: false),
             
             Messages(objectId: "1323", user: goh, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: true),
             Messages(objectId: "1323", user: goh, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/23/2019"), isIncoming: true),
@@ -99,6 +99,24 @@ class MessagesView: UIViewController {
              }
          }
         
+         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.ui.setUsersTyping([self.userFaris])
+            self.ui.tableView.setContentOffset(CGPoint(x: 0, y: self.ui.tableView.contentSize.height - self.ui.tableView.frame.height), animated: false)
+            }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            let now = Date()
+            let NewMessages = Messages(objectId: "12321", user: self.userFaris, text: "Welcome to chatKit ❤️", createdAt: now, isIncoming: true)
+                self.insert(NewMessages)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+           self.ui.setUsersTyping([])
+           let now = Date()
+           let NewMessages = Messages(objectId: "12321", user: self.userFaris, text: "I'm still working on it, I will get it done as soon as possible.", createdAt: now, isIncoming: true)
+             self.insert(NewMessages)
+           }
+        
+
         
     }
     
@@ -146,7 +164,7 @@ class MessagesView: UIViewController {
              DispatchQueue.main.async {
                  self.ui.tableView.scrollToBottom(animated: false)
                  self.ui.tableView.layoutIfNeeded()
-                 self.ui.tableView.setContentOffset(CGPoint(x: 0, y: self.ui.tableView.contentSize.height - self.ui.tableView.frame.height - 20), animated: false)
+                 self.ui.tableView.setContentOffset(CGPoint(x: 0, y: self.ui.tableView.contentSize.height - self.ui.tableView.frame.height), animated: false)
              }
             
   
@@ -220,31 +238,31 @@ extension MessagesView: inputDelegate {
     
     func sendText(text: String) {
         let now = Date()
-        let NewMessages = Messages(objectId: "12321", user: MeFaris, text: text, createdAt: now, isIncoming: false)
+        let NewMessages = Messages(objectId: "12321", user: userTim, text: text, createdAt: now, isIncoming: false)
         self.insert(NewMessages)
         
     }
     
     func SendAudio(url: URL) {
         let now = Date()
-        let NewMessages = Messages(objectId: "12321", user: MeFaris, audio: url, createdAt: now, isIncoming: false)
+        let NewMessages = Messages(objectId: "12321", user: userTim, audio: url, createdAt: now, isIncoming: false)
         self.insert(NewMessages)
     }
     
     func SendEmoji(emoji: String) {
         let image = UIImage(named: emoji)!
         let now = Date()
-        let NewMessages = Messages(objectId: "23223", user: MeFaris, sticker: image, createdAt: now, isIncoming: false)
+        let NewMessages = Messages(objectId: "23223", user: userTim, sticker: image, createdAt: now, isIncoming: false)
         self.insert(NewMessages)
     }
     
     func SendImage(image: UIImage, caption: String?) {
         let now = Date()
         if caption == nil {
-            let NewMessages = Messages(objectId: "324243", user: MeFaris, image: image, createdAt: now, isIncoming: false)
+            let NewMessages = Messages(objectId: "324243", user: userTim, image: image, createdAt: now, isIncoming: false)
             self.insert(NewMessages)
         } else {
-            let NewMessages = Messages(objectId: "324243", user: MeFaris, image: image, text: caption, createdAt: now, isIncoming: false)
+            let NewMessages = Messages(objectId: "324243", user: userTim, image: image, text: caption, createdAt: now, isIncoming: false)
             self.insert(NewMessages)
         }
         
@@ -254,13 +272,13 @@ extension MessagesView: stickersGifDelegate {
     func sendSticker(name: String) {
         let image = UIImage(named: name)!
         let now = Date()
-        let NewMessages = Messages(objectId: "23223", user: MeFaris, sticker: image, createdAt: now, isIncoming: false)
+        let NewMessages = Messages(objectId: "23223", user: userTim, sticker: image, createdAt: now, isIncoming: false)
         self.insert(NewMessages)
     }
     func SendGif(name: String) {
         let image = UIImage.gif(name: name)!
         let now = Date()
-        let NewMessages = Messages(objectId: "23223", user: MeFaris, sticker: image, createdAt: now, isIncoming: false)
+        let NewMessages = Messages(objectId: "23223", user: userTim, sticker: image, createdAt: now, isIncoming: false)
         self.insert(NewMessages)
     }
 }

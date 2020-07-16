@@ -12,10 +12,9 @@ import UIKit
 open class TypingBubbleView: UIView {
     open var styles = ChatKit.Styles
     
-    var displayName: UILabel = {
+    var typingLabel: UILabel = {
         let lab = UILabel()
         lab.textAlignment = .left
-        lab.text = "Faris is Typing..."
         lab.font = UIFont.italicSystemFont(ofSize: 12)
         return lab
     }()
@@ -40,9 +39,9 @@ open class TypingBubbleView: UIView {
      
      open func setupSubviews() {
          self.backgroundColor = .clear
-         addSubview(displayName)
+         addSubview(typingLabel)
          addSubview(typingBubble)
-         displayName.anchor(left: leftAnchor,bottom:bottomAnchor,paddingLeft: 15,paddingBottom: 5)
+         typingLabel.anchor(left: leftAnchor,bottom:bottomAnchor,paddingLeft: 15,paddingBottom: 5)
         
      }
      
@@ -55,14 +54,6 @@ open class TypingBubbleView: UIView {
          typingBubble.frame = bounds.inset(by: insets)
      }
     
-    func labelThatFits(_ title: String) -> UILabel {
-        let titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 12)
-        titleLabel.text = title
-        titleLabel.textAlignment = .left
-        titleLabel.widthAnchor.constraint(equalToConstant: titleLabel.intrinsicContentSize.width + 10).isActive = true
-        return titleLabel
-    }
     
 }
 

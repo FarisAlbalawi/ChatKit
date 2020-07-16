@@ -13,7 +13,13 @@ import UIKit
     @objc optional func SendImage(image: UIImage, caption: String?)
     @objc optional func SendAudio(url: URL)
     @objc optional func SendEmoji(emoji: String)
+    
+    @objc optional func startTyping()
+    @objc optional func stopTyping()
+    
 }
+
+
 
 open class MessagesUI : UIView {
  
@@ -198,6 +204,9 @@ open class MessagesUI : UIView {
            }
        }
 
+  private var timer: Timer? = nil
+  private var isTyping: Bool = false
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = style.backgroundColor
@@ -437,12 +446,6 @@ extension MessagesUI {
     
     private func setupConstraints() {
 
-      
-        
-        typingBubble.frame = CGRect(x: 0, y: 0, width: 200, height: 80)
-        typingBubble.typingBubble.startAnimating()
-        self.tableView.tableFooterView = typingBubble
-        
         /// ------------------------------------
         let height = self.safeAreaInsets.bottom
         recordAudioV.anchor(left: stackView.leftAnchor,right:stackView.rightAnchor,height:keyboardHeight - height)
@@ -607,15 +610,69 @@ extension MessagesUI: GrowingTextViewDelegate, UITextViewDelegate {
                 }
             }
 
+            
+
 
             self.tableView.scrollToBottom(animated: false)
             self.tableView.layoutIfNeeded()
             self.tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentSize.height - tableView.frame.height), animated: false)
              self.layoutIfNeeded()
            
+        
          }
-
+        
+        // MARK: user stop and start typing
+        if textView.text.isEmpty {
+             isTyping = false
+             inputDelegate?.stopTyping?()
+        } else {
+            if isTyping == false {
+                isTyping = true
+                inputDelegate?.startTyping?()
+            }
+            
+        }
      }
+    
+
+
+    public func textViewDidEndEditing(_ textView: UITextView) {
+       inputDelegate?.stopTyping?()
+    }
+    
+      // MARK: - Users Typing
+    
+    open func setUsersTyping(_ users: [User]) {
+        
+        // TODO: add appearance proxy!!
+        
+        guard users.count > 0 else {
+            typingBubble.typingLabel.text = nil
+            self.tableView.tableFooterView  = nil
+            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.height - 20), animated: false)
+            return
+        }
+        
+        var text: String!
+        
+        if users.count == 1 {
+            text = "\(users[0].fullname) is typing..."
+  
+        } else {
+            text = "\(users.count) people is typing..."
+ 
+        }
+        
+      
+        typingBubble.typingLabel.text = text
+        typingBubble.frame = CGRect(x: 0, y: 0, width: 200, height: 80)
+        typingBubble.typingBubble.startAnimating()
+        self.tableView.tableFooterView = typingBubble
+        
+    }
+
+
+
     
     
     // *** Call layoutIfNeeded on superview for animation when changing height ***
