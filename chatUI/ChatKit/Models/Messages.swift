@@ -12,7 +12,7 @@ import UIKit
 
 public struct User {
     var userId: String
-    var fullname: String
+    var displayname: String
     var avatar: UIImage?
 }
 

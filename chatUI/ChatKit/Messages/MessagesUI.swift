@@ -656,7 +656,7 @@ extension MessagesUI: GrowingTextViewDelegate, UITextViewDelegate {
         var text: String!
         
         if users.count == 1 {
-            text = "\(users[0].fullname) is typing..."
+            text = "\(users[0].displayname) is typing..."
   
         } else {
             text = "\(users.count) people is typing..."

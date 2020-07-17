@@ -56,6 +56,16 @@ open class MessageCell: UITableViewCell {
          return image
      }()
     
+    private var displayname: UILabel = {
+        let lab = UILabel()
+        lab.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        lab.text = "Faris Albalawi"
+        return lab
+     }()
+    
+    
+    
+    
     
 
     
@@ -75,15 +85,19 @@ open class MessageCell: UITableViewCell {
     
      func isShowingAvatar() {
         self.addSubview(avatar)
+        self.stackView.insertArrangedSubview(displayname, at: 0)
         stackView.layoutMargins = UIEdgeInsets(top: 2, left: 5, bottom: 2, right: 15)
         avatar.anchor(left: leftAnchor,bottom: bottomAnchor,paddingLeft: 5,paddingBottom: 5, width: 30,height: 30)
+        
         stackView.anchor(top: topAnchor,bottom: bottomAnchor)
+        
         leftConstrain = stackView.leftAnchor.constraint(equalTo: avatar.rightAnchor)
         rightConstrain = stackView.rightAnchor.constraint(equalTo: rightAnchor)
     }
     
     func isHidingAvater() {
         self.avatar.removeFromSuperview()
+        self.displayname.removeFromSuperview()
         stackView.layoutMargins = UIEdgeInsets(top: 2, left: 15, bottom: 2, right: 15)
         stackView.anchor(top: topAnchor,bottom: bottomAnchor)
         leftConstrain = stackView.leftAnchor.constraint(equalTo: leftAnchor)
@@ -112,18 +126,23 @@ open class MessageCell: UITableViewCell {
          switch positionInBlock {
          case .top:
              avatar.isHidden = true
+             displayname.isHidden = false
+             
              messageStatusView.isHidden = true
              bubbleView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner]
          case .center:
              avatar.isHidden = true
+             displayname.isHidden = true
              messageStatusView.isHidden = true
              bubbleView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
          case .bottom:
              avatar.isHidden = false
+             displayname.isHidden = true
              messageStatusView.isHidden = false
              bubbleView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
          default:
              avatar.isHidden = false
+             displayname.isHidden = false
              messageStatusView.isHidden = false
              bubbleView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner]
             

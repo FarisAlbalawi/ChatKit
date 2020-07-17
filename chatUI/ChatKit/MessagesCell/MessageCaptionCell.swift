@@ -69,7 +69,7 @@ class MessageCaptionCell: MessageCell {
         
         messageLabel.anchor(top: attachImageView.bottomAnchor,left: bubbleView.leftAnchor
                    ,bottom: bubbleView.bottomAnchor,right: bubbleView.rightAnchor,
-                    paddingTop: 10,paddingLeft: 10,paddingBottom: 15,paddingRight: 10)
+                    paddingTop: 10,paddingLeft: 10,paddingBottom: 10,paddingRight: 10)
     }
     
     override func bind(withMessage message: Messages) {

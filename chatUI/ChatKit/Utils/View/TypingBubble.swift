@@ -57,8 +57,6 @@ open class TypingBubbleView: UIView {
     
 }
 
-
-/// A subclass of `UIView` that mimics the iMessage typing bubble
 open class TypingBubble: UIView {
     
     // MARK: - Properties
@@ -189,7 +187,6 @@ open class TypingBubble: UIView {
     
 }
 
-/// A `UIView` subclass that holds 3 dots which can be animated
 open class TypingIndicator: UIView {
     
     // MARK: - Properties
@@ -197,7 +194,7 @@ open class TypingIndicator: UIView {
     /// The offset that each dot will transform by during the bounce animation
     public var bounceOffset: CGFloat = 2.5
     
-    /// A convenience accessor for the `backgroundColor` of each dot
+    /// the backgroundColor of each dot
     open var dotColor: UIColor = UIColor.systemGray {
         didSet {
             dots.forEach { $0.backgroundColor = dotColor }

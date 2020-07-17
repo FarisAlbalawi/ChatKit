@@ -14,7 +14,7 @@ class chatUI: MessagesUI {
     
     override var style: MessegesStyle {
         var style = ChatKit.Styles
-            style.showingAvataer = false
+            style.showingAvataer = true
 //          style.isSupportAudio = false
 //          style.isSupportImages = false
 //          style.isSupportQuickEmoji = false
@@ -32,9 +32,9 @@ class chatUI: MessagesUI {
 class MessagesView: UIViewController {
     
     
-    let userTim = User(userId: "1", fullname: "Time", avatar: #imageLiteral(resourceName: "audio_icon"))
-    let userFaris = User(userId: "2", fullname: "Faris", avatar: #imageLiteral(resourceName: "emoji_3"))
-    let goh = User(userId: "3", fullname: "goh", avatar: #imageLiteral(resourceName: "emoji_3"))
+    let userTim = User(userId: "1", displayname: "Time", avatar: #imageLiteral(resourceName: "audio_icon"))
+    let userFaris = User(userId: "2", displayname: "Faris", avatar: #imageLiteral(resourceName: "emoji_3"))
+    let goh = User(userId: "3", displayname: "goh", avatar: #imageLiteral(resourceName: "emoji_3"))
     
     let image1 = UIImage(named: "image1")
     let image2 = UIImage(named: "image2")

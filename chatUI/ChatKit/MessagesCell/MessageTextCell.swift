@@ -48,7 +48,7 @@ class MessageTextCell: MessageCell {
     private func setupConstraints() {
         messageLabel.anchor(top: bubbleView.topAnchor,left: bubbleView.leftAnchor
                ,bottom: bubbleView.bottomAnchor,right: bubbleView.rightAnchor,
-                paddingTop: 15,paddingLeft: 15,paddingBottom: 15,paddingRight: 15)
+                paddingTop: 10,paddingLeft: 10,paddingBottom: 10,paddingRight: 10)
     }
     
     
