@@ -27,6 +27,7 @@ open class MessagesUI : UIView {
     weak var dataSource: DataSource?
     weak var inputDelegate: inputDelegate?
     
+    weak var cellDelegate: MessageCellDelegate?
     /// ------------------------------------
     public var currentUser: User!
     

@@ -120,21 +120,21 @@ public struct chatUIStyle: MessegesStyle {
     
     public var inputIconsColor: UIColor = UIColor(red: 0.2627, green: 0.5882, blue: 0.9686, alpha: 1.0)
 
-    public var backgroundColor: UIColor = .setColor(.systemBackground, Light: .systemBackground)
+    public var backgroundColor: UIColor = .setColor(dark: .systemBackground, light: .systemBackground)
     
     public var inputPlaceholder: String = "Message"
     
-    public var inputPlaceholderTextColor: UIColor = .setColor(.systemGray2, Light: .systemGray2)
+    public var inputPlaceholderTextColor: UIColor = .setColor(dark: .systemGray2, light: .systemGray2)
     
-    public var inputTextViewBackgroundColor: UIColor = .setColor(.systemGray6, Light: .systemGray6)
+    public var inputTextViewBackgroundColor: UIColor = .setColor(dark: .systemGray6, light: .systemGray6)
     
-    public var outgoingTextColor: UIColor = .setColor(.white, Light: .white)
+    public var outgoingTextColor: UIColor = .setColor(dark: .white, light: .white)
     
-    public var outgoingBubbleColor: UIColor = .setColor(UIColor(red: 0.2627, green: 0.5882, blue: 0.9686, alpha: 1.0), Light: UIColor(red: 0.2627, green: 0.5882, blue: 0.9686, alpha: 1.0))
+    public var outgoingBubbleColor: UIColor = .setColor(dark: UIColor(red: 0.2627, green: 0.5882, blue: 0.9686, alpha: 1.0), light: UIColor(red: 0.2627, green: 0.5882, blue: 0.9686, alpha: 1.0))
     
-    public var incomingTextColor: UIColor = .setColor(.white, Light: .black)
+    public var incomingTextColor: UIColor = .setColor(dark: .white, light: .black)
     
-    public var incomingBubbleColor: UIColor = .setColor(.systemGray6, Light: .systemGray6)
+    public var incomingBubbleColor: UIColor = .setColor(dark: .systemGray6, light: .systemGray6)
     
     
 }

@@ -20,6 +20,8 @@ open class MessageCell: UITableViewCell {
     
      open var styles = ChatKit.Styles
     
+     open weak var delegate: MessageCellDelegate?
+    
      var bubbleView: UIView = {
         let bubble = UIView()
         bubble.layer.cornerRadius = 20

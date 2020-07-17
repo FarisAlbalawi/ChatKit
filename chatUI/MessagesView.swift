@@ -64,6 +64,7 @@ class MessagesView: UIViewController {
         ui.dataSource = self
         ui.inputDelegate = self
         ui.sgView.stickerGifDelegate = self
+        ui.cellDelegate = self
         view = ui
     
         ui.currentUser = userTim
@@ -71,11 +72,11 @@ class MessagesView: UIViewController {
         // test array
          let messagesFromServer = [
             
-            Messages(objectId: "1331", user: userTim, image: image1!, text: "text", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: false),
+            Messages(objectId: "1331", user: userTim, image: image1!, text: "text 4125388166", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: false),
             
-            Messages(objectId: "1323", user: userTim, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: false),
+            Messages(objectId: "1323", user: userTim, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry 4125388166", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: false),
             
-            Messages(objectId: "1323", user: goh, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: true),
+            Messages(objectId: "1323", user: goh, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry 4125388166", createdAt: Date.dateString(customString: "05/22/2019"), isIncoming: true),
             Messages(objectId: "1323", user: goh, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/23/2019"), isIncoming: true),
             
             Messages(objectId: "1323", user: goh, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/23/2019"), isIncoming: true),
@@ -199,39 +200,102 @@ extension MessagesView: DataSource {
 
 // MARK: - MessageLabelDelegate
 
-extension MessagesView {
-    
-    func didSelectAddress(_ addressComponents: [String: String]) {
-        print("Address Selected: \(addressComponents)")
+extension MessagesView: MessageCellDelegate {
+    func contextLabel(_ sender: ContextLabel, textFontForLinkResult linkResult: LinkResult) -> UIFont {
+        return UIFont.systemFont(ofSize: 16)
     }
     
-    func didSelectDate(_ date: Date) {
-        print("Date Selected: \(date)")
-    }
-    
-    func didSelectPhoneNumber(_ phoneNumber: String) {
-        print("Phone Number Selected: \(phoneNumber)")
-    }
-    
-    func didSelectURL(_ url: URL) {
-        print("URL Selected: \(url)")
-    }
-    
-    func didSelectTransitInformation(_ transitInformation: [String: String]) {
-        print("TransitInformation Selected: \(transitInformation)")
-    }
+    func contextLabel(_ sender: ContextLabel, foregroundColorForLinkResult linkResult: LinkResult) -> UIColor {
+        if sender.isIncoming {
+            switch linkResult.detectionType {
+                case .none:
+                    return sender.textColor
+                case .userHandle:
+                    return .setColor(dark: .blue, light: .blue)
+                case .hashtag:
+                    return .setColor(dark: .blue, light: .blue)
+                case .url:
+                    return .setColor(dark: .blue, light: .blue)
+                case .email:
+                    return .setColor(dark: .blue, light: .blue)
+                case .phoneNumber:
+                    return .setColor(dark: .blue, light: .blue)
+                }
+        } else {
+            switch linkResult.detectionType {
+                case .none:
+                    return sender.textColor
+                case .userHandle:
+                    return .setColor(dark: .yellow, light: .yellow)
+                case .hashtag:
+                    return .setColor(dark: .yellow, light: .yellow)
+                case .url:
+                    return .setColor(dark: .yellow, light: .yellow)
+                case .email:
+                    return .setColor(dark: .yellow, light: .link)
+                case .phoneNumber:
+                    return .setColor(dark: .yellow, light: .yellow)
+                }
+        }
 
-    func didSelectHashtag(_ hashtag: String) {
-        print("Hashtag selected: \(hashtag)")
     }
+    
+    func contextLabel(_ sender: ContextLabel, foregroundHighlightedColorForLinkResult linkResult: LinkResult) -> UIColor {
+        return sender.textColor
+    }
+    
+    func contextLabel(_ sender: ContextLabel, underlineStyleForLinkResult linkResult: LinkResult) -> NSUnderlineStyle {
+        switch linkResult.detectionType {
+        case .none:
+            return []
+        case .userHandle:
+            return .single
+        case .hashtag:
+            return .single
+        case .url:
+            return .single
+        case .email:
+            return .single
+        case .phoneNumber:
+            return .single
+        }
+        
+    }
+    
+    func contextLabel(_ sender: ContextLabel, modifiedAttributedString attributedString: NSAttributedString) -> NSAttributedString {
+        return attributedString
+    }
+    
+    func contextLabel(_ sender: ContextLabel, didTouchWithTouchResult touchResult: TouchResult) {
+         guard let textLink = touchResult.linkResult else { return }
+         switch touchResult.state {
+           case .ended:
+               switch textLink.detectionType {
+               case .url:
+                   print("url \(textLink.text)")
+               case .email:
+                   print("email \(textLink.text)")
+               case .phoneNumber:
+                   print("phoneNumber \(textLink.text)")
+               case .hashtag:
+                  print("hashtag \(textLink.text)")
+               case .userHandle:
+                  print("userHandle \(textLink.text)")
+               case .none:
+                print("none")
+            }
+               
+           default:
+               break
+           }
+    }
+    
+    func contextLabel(_ sender: ContextLabel, didCopy text: String?) {
+      
+        
+    }
+    
 
-    func didSelectMention(_ mention: String) {
-        print("Mention selected: \(mention)")
-    }
-
-    func didSelectCustom(_ pattern: String, match: String?) {
-        print("Custom data detector patter selected: \(pattern)")
-    }
 
 }
 

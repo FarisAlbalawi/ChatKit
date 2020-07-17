@@ -59,7 +59,7 @@ public struct TouchResult {
   public let state: UIGestureRecognizer.State
 }
 
-protocol ContextLabelDelegate: class {
+public protocol ContextLabelDelegate: class {
   
   func contextLabel(_ sender: ContextLabel, textFontForLinkResult linkResult: LinkResult) -> UIFont
   
@@ -100,14 +100,6 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
   
   public var foregroundColor: (LinkResult) -> UIColor = { (linkResult) in
     switch linkResult.detectionType {
-    case .userHandle:
-      return UIColor(red: 71.0/255.0, green: 90.0/255.0, blue: 109.0/255.0, alpha: 1.0)
-    case .hashtag:
-      return UIColor(red: 151.0/255.0, green: 154.0/255.0, blue: 158.0/255.0, alpha: 1.0)
-    case .url, .email:
-      return UIColor(red: 45.0/255.0, green: 113.0/255.0, blue: 178.0/255.0, alpha: 1.0)
-    case .phoneNumber:
-      return UIColor(red: 45.0/255.0, green: 113.0/255.0, blue: 178.0/255.0, alpha: 1.0)
     default:
       return .black
     }
@@ -168,6 +160,7 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
   
   
   // Selected linkResult
+    
   fileprivate var selectedLinkResult: LinkResult?
   
   // Cachable Object to encapsulate all relevant data to restore ContextLabel values
@@ -232,6 +225,8 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
     }
   }
   
+
+    
   open override var text: String! {
     didSet {
       setContextLabelDataWithText(text)
@@ -243,20 +238,20 @@ open class ContextLabel: UILabel, NSLayoutManagerDelegate, UIGestureRecognizerDe
       _textColor = textColor
     }
   }
-  
-  fileprivate var _textColor = UIColor.black
-  
+    fileprivate var _textColor = UIColor.black
+    
+  open var isIncoming = Bool()
   // MARK: - Initializations
   
   public required init?(coder: NSCoder) {
     super.init(coder: coder)
-    self.textAlignment = .natural
+    self.determineTextDirection()
     setup()
   }
   
   public override init(frame: CGRect) {
     super.init(frame: frame)
-    self.textAlignment = .natural
+    self.determineTextDirection()
     setup()
   }
   

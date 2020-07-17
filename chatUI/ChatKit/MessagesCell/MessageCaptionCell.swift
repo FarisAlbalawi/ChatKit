@@ -13,28 +13,20 @@ class MessageCaptionCell: MessageCell {
     
     static var reuseIdentifier = "MessageCaptionCell"
 
-    private lazy var captionLabel: ContextLabel = {
-         let captionLabel = ContextLabel(frame: .zero, didTouch: { (touchResult) in
-             self.contextLabel(didTouchWithTouchResult: touchResult)
-         })
-
-         // Custoim Underline Style
-         captionLabel.underlineStyle = { (linkResult) in
-             switch linkResult.detectionType {
-             case .url, .email, .phoneNumber:
-                 return .single
-             default:
-                 return []
-             }
-         }
-
-         captionLabel.lineSpacing = 2
-         captionLabel.font = UIFont.systemFont(ofSize: 15)
-         captionLabel.textAlignment = .natural
-         captionLabel.numberOfLines = 0
-         captionLabel.sizeToFit()
-         return captionLabel
-     }()
+    open override weak var delegate: MessageCellDelegate? {
+        didSet {
+            messageLabel.delegate = delegate
+        }
+    }
+    
+    private var messageLabel: ContextLabel = {
+           let messageLabel = ContextLabel()
+           messageLabel.font = UIFont.systemFont(ofSize: 16)
+           messageLabel.numberOfLines = 0
+           messageLabel.lineSpacing = 2
+           messageLabel.sizeToFit()
+           return messageLabel
+       }()
     
 
   
@@ -52,22 +44,16 @@ class MessageCaptionCell: MessageCell {
     override func prepareForReuse() {
          super.prepareForReuse()
          attachImageView.image = nil
-         captionLabel.underlineStyle = { (linkResult) in
-            switch linkResult.detectionType {
-                case .url, .email, .phoneNumber:
-                 return .single
-                default:
-                 return []
-             }
-         }
-         captionLabel.text = nil
+         messageLabel.attributedText = nil
+         messageLabel.text = nil
+ 
      }
     
     override func setupUIElements() {
         backgroundColor = .clear
-        captionLabel.preferredMaxLayoutWidth = bounds.width - 40
+        messageLabel.preferredMaxLayoutWidth = bounds.width - 40
         bubbleView.addSubview(attachImageView)
-        bubbleView.addSubview(captionLabel)
+        bubbleView.addSubview(messageLabel)
         setupConstraints()
         
     }
@@ -81,27 +67,27 @@ class MessageCaptionCell: MessageCell {
         height.priority = UILayoutPriority(999)
         NSLayoutConstraint.activate([width,height])
         
-        captionLabel.anchor(top: attachImageView.bottomAnchor,left: bubbleView.leftAnchor
+        messageLabel.anchor(top: attachImageView.bottomAnchor,left: bubbleView.leftAnchor
                    ,bottom: bubbleView.bottomAnchor,right: bubbleView.rightAnchor,
                     paddingTop: 10,paddingLeft: 10,paddingBottom: 15,paddingRight: 10)
     }
     
     override func bind(withMessage message: Messages) {
+         tranformUI(message.isIncoming)
          attachImageView.image =  message.image!
-         captionLabel.text = message.text
+         messageLabel.text = message.text
+         messageLabel.determineTextDirection()
          let date = dateFormatTime(date: message.createdAt)
          messageStatusView.dateLab.text = date
-         tranformUI(message.isIncoming)
+         
     }
     
     override func tranformUI(_ isIncoming: Bool) {
         super.tranformUI(isIncoming)
+        messageLabel.isIncoming = isIncoming
         if isIncoming {
     
-            captionLabel.textColor = styles.incomingTextColor
-            captionLabel.foregroundHighlightedColor = { (linkResult) in return self.styles.incomingTextColor }
-            captionLabel.foregroundColor = { (linkResult) in return self.styles.incomingTextColor }
-            
+            messageLabel.textColor = styles.incomingTextColor
             bubbleView.backgroundColor = styles.incomingBubbleColor
             leftConstrain.isActive = true
             rightConstrain.isActive = false
@@ -109,10 +95,7 @@ class MessageCaptionCell: MessageCell {
             messageStatusView.setupConstraints(.left)
             messageStatusView.layoutIfNeeded()
         } else {
-            captionLabel.textColor = styles.outgoingTextColor
-            captionLabel.foregroundHighlightedColor = { (linkResult) in return self.styles.outgoingTextColor }
-            captionLabel.foregroundColor = { (linkResult) in return self.styles.outgoingTextColor }
-        
+            messageLabel.textColor = styles.outgoingTextColor
             bubbleView.backgroundColor = styles.outgoingBubbleColor
             leftConstrain.isActive = false
             rightConstrain.isActive = true
@@ -122,28 +105,6 @@ class MessageCaptionCell: MessageCell {
             
         }
     }
-
-    
-    private func contextLabel(didTouchWithTouchResult touchResult: TouchResult) {
-         guard let textLink = touchResult.linkResult else { return }
-         switch touchResult.state {
-         case .ended:
-             switch textLink.detectionType {
-             case .url:
-                 print("url \(textLink.text)")
-             case .email:
-                 print("email \(textLink.text)")
-             case .phoneNumber:
-                 print("phoneNumber \(textLink.text)")
-             default:
-                 print("default")
-             }
-             
-         default:
-             break
-         }
-     }
-    
     
 }
 

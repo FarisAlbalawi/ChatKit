@@ -29,6 +29,21 @@ extension UILabel {
     }
 }
 
+ extension UILabel {
+    func determineTextDirection () {
+        guard self.text != nil else {return}
+
+        let tagger = NSLinguisticTagger(tagSchemes: [.language], options: 0)
+        tagger.string = self.text
+
+        let lang = tagger.dominantLanguage
+
+        let rtl = lang == "he" || lang == "ar"
+
+        self.textAlignment = rtl ? .right : .left
+    }
+}
+
 extension UIFont {
     var bold: UIFont {
         return with(.traitBold)

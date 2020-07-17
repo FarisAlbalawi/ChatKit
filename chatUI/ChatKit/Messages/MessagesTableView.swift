@@ -85,6 +85,7 @@ extension MessagesUI: UITableViewDataSource {
         }
         
 
+        cell.delegate = cellDelegate
         cell.styles = self.style as! chatUIStyle
         cell.bind(withMessage:  chatMessage)
         cell.selectionStyle = .none

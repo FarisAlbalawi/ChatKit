@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIColor {
+public extension UIColor {
     static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
         return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
     }
@@ -25,9 +25,9 @@ extension UIColor {
         }
     }
     
-    static func setColor(_ Dark: UIColor, Light: UIColor) -> UIColor {
+    static func setColor(dark: UIColor, light: UIColor) -> UIColor {
         return UIColor.init { (trait) -> UIColor in
-            return trait.userInterfaceStyle == .dark ? Dark : Light
+            return trait.userInterfaceStyle == .dark ? dark : light
         }
     }
     

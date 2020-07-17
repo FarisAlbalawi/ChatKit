@@ -13,10 +13,18 @@ class MessageTextCell: MessageCell {
     
    static var reuseIdentifier = "MessageTextCell"
     
-   private lazy var messageLabel: ContextLabel = {
+
+    open override weak var delegate: MessageCellDelegate? {
+        didSet {
+            messageLabel.delegate = delegate
+        }
+    }
+    
+    
+   private var messageLabel: ContextLabel = {
         let messageLabel = ContextLabel()
         messageLabel.font = UIFont.systemFont(ofSize: 16)
-        messageLabel.textAlignment = .natural
+        messageLabel.determineTextDirection()
         messageLabel.numberOfLines = 0
         messageLabel.lineSpacing = 2
         messageLabel.sizeToFit()
@@ -32,7 +40,6 @@ class MessageTextCell: MessageCell {
      }
     
     override func setupUIElements() {
-        messageLabel.delegate = self
         bubbleView.addSubview(messageLabel)
         messageLabel.preferredMaxLayoutWidth = bounds.width - 40
         setupConstraints()
@@ -47,17 +54,20 @@ class MessageTextCell: MessageCell {
     
     
     override func bind(withMessage message: Messages) {
+        tranformUI(message.isIncoming)
         messageLabel.text = message.text
+        messageLabel.determineTextDirection()
         let date = dateFormatTime(date: message.createdAt)
         messageStatusView.dateLab.text = date
-        tranformUI(message.isIncoming)
+        
     }
     
     // add constraints to subviews and set color
     override func tranformUI(_ isIncoming: Bool) {
         super.tranformUI(isIncoming)
+         messageLabel.isIncoming = isIncoming
           if isIncoming {
-              
+            
               messageLabel.textColor = styles.incomingTextColor
               bubbleView.backgroundColor = styles.incomingBubbleColor
               leftConstrain.isActive = true
@@ -76,56 +86,9 @@ class MessageTextCell: MessageCell {
               messageStatusView.setupConstraints(.right)
               messageStatusView.layoutIfNeeded()
           }
+        
 
       }
 
 }
 
-
-extension MessageTextCell :ContextLabelDelegate {
-    func contextLabel(_ sender: ContextLabel, textFontForLinkResult linkResult: LinkResult) -> UIFont {
-        return UIFont.systemFont(ofSize: 16)
-    }
-    
-    func contextLabel(_ sender: ContextLabel, foregroundColorForLinkResult linkResult: LinkResult) -> UIColor {
-        return .lightGray
-    }
-    
-    func contextLabel(_ sender: ContextLabel, foregroundHighlightedColorForLinkResult linkResult: LinkResult) -> UIColor {
-        return .lightGray
-    }
-    
-    func contextLabel(_ sender: ContextLabel, underlineStyleForLinkResult linkResult: LinkResult) -> NSUnderlineStyle {
-        return .single
-    }
-    
-    func contextLabel(_ sender: ContextLabel, modifiedAttributedString attributedString: NSAttributedString) -> NSAttributedString {
-        return attributedString
-    }
-    
-    func contextLabel(_ sender: ContextLabel, didTouchWithTouchResult touchResult: TouchResult) {
-         guard let textLink = touchResult.linkResult else { return }
-         switch touchResult.state {
-           case .ended:
-               switch textLink.detectionType {
-               case .url:
-                   print("url \(textLink.text)")
-               case .email:
-                   print("email \(textLink.text)")
-               case .phoneNumber:
-                   print("phoneNumber \(textLink.text)")
-               default:
-                   print("default")
-               }
-               
-           default:
-               break
-           }
-    }
-    
-    func contextLabel(_ sender: ContextLabel, didCopy text: String?) {
-        
-    }
-    
-    
-}
