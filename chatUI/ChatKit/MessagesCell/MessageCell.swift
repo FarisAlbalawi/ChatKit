@@ -57,17 +57,11 @@ open class MessageCell: UITableViewCell {
      }()
     
     private var displayname: UILabel = {
-        let lab = UILabel()
+        let lab = PaddingLabel(withInsets: 0, 3, 10, 0)
         lab.font = UIFont.systemFont(ofSize: 13, weight: .bold)
         lab.text = "Faris Albalawi"
         return lab
      }()
-    
-    
-    
-    
-    
-
     
      var leftConstrain: NSLayoutConstraint!
      var rightConstrain: NSLayoutConstraint!
@@ -93,6 +87,8 @@ open class MessageCell: UITableViewCell {
         
         leftConstrain = stackView.leftAnchor.constraint(equalTo: avatar.rightAnchor)
         rightConstrain = stackView.rightAnchor.constraint(equalTo: rightAnchor)
+        displayname.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 0)
+           
     }
     
     func isHidingAvater() {
