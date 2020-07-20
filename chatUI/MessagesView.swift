@@ -52,12 +52,15 @@ class MessagesView: UIViewController {
     
      var messagesData = [[Messages]]()
     
+    let image = URL(string: "https://images.pexels.com/photos/2894258/pexels-photo-2894258.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
     }
+    
+    
 
     override func loadView() {
         ui.parentViewController = self
@@ -86,6 +89,7 @@ class MessagesView: UIViewController {
             Messages(objectId: "1323", user: goh, text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry", createdAt: Date.dateString(customString: "05/23/2019"), isIncoming: true),
             
             Messages(objectId: "1323", user: goh, text: "Lorem Ipsum is simply", createdAt: Date.dateString(customString: "05/23/2019"), isIncoming: true),
+//            Messages(objectId: "1222", user: userTim , imageUrl: image!, createdAt: Date.dateString(customString: "05/23/2019"), isIncoming: false)
          ]
         
         

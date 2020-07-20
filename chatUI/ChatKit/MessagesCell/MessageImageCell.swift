@@ -46,7 +46,6 @@ class MessageImageCell: MessageCell {
          self.attachImageView.image = message.image!
          self.messageStatusView.dateLab.text = date
       
-        
         tranformUI(message.isIncoming)
     }
     
