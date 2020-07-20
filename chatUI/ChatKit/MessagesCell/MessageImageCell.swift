@@ -42,11 +42,10 @@ class MessageImageCell: MessageCell {
     }
     
     override func bind(withMessage message: Messages) {
+         self.tranformUI(message.isIncoming)
          let date = dateFormatTime(date: message.createdAt)
-         self.attachImageView.image = message.image!
          self.messageStatusView.dateLab.text = date
-      
-        tranformUI(message.isIncoming)
+         self.attachImageView.image = message.image!
     }
     
     override func tranformUI(_ isIncoming: Bool) {

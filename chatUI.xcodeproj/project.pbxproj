@@ -10,7 +10,6 @@
 		642502ED244E14F8002E1785 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642502EC244E14F8002E1785 /* Messages.swift */; };
 		642502EF244E6684002E1785 /* MessageCaptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642502EE244E6684002E1785 /* MessageCaptionCell.swift */; };
 		642502F1244E74A3002E1785 /* UIImage+Extension .swift in Sources */ = {isa = PBXBuildFile; fileRef = 642502F0244E74A3002E1785 /* UIImage+Extension .swift */; };
-		642575AA24C4CBCF00379C58 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642575A924C4CBCF00379C58 /* ImageCache.swift */; };
 		64492B3D245911DB0001CA75 /* StickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64492B3C245911DB0001CA75 /* StickerViewController.swift */; };
 		64492B3F245911F30001CA75 /* EmojisCVDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64492B3E245911F30001CA75 /* EmojisCVDelegate.swift */; };
 		64492B422459121E0001CA75 /* EmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64492B412459121E0001CA75 /* EmojiCell.swift */; };
@@ -86,7 +85,6 @@
 		642502EC244E14F8002E1785 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		642502EE244E6684002E1785 /* MessageCaptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCaptionCell.swift; sourceTree = "<group>"; };
 		642502F0244E74A3002E1785 /* UIImage+Extension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension .swift"; sourceTree = "<group>"; };
-		642575A924C4CBCF00379C58 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		64492B3C245911DB0001CA75 /* StickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerViewController.swift; sourceTree = "<group>"; };
 		64492B3E245911F30001CA75 /* EmojisCVDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojisCVDelegate.swift; sourceTree = "<group>"; };
 		64492B412459121E0001CA75 /* EmojiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
@@ -172,14 +170,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		642575A824C4CB8400379C58 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				642575A924C4CBCF00379C58 /* ImageCache.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		64492B3B245911BB0001CA75 /* Stickers */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,7 +319,6 @@
 		646F6E2624B5406B00EA456D /* ChatKit */ = {
 			isa = PBXGroup;
 			children = (
-				642575A824C4CB8400379C58 /* Network */,
 				64A005D724BE53B9000026FE /* MessagesTableViews */,
 				64615CC9249576DC00B09519 /* Style */,
 				64E60478248575B8000FBBE8 /* Audio */,
@@ -546,7 +535,6 @@
 				644B2F2624498396006D2FA5 /* GrowingTextView.swift in Sources */,
 				644B2F1E24498104006D2FA5 /* MessageEmojiCell.swift in Sources */,
 				64A005DF24BFA94B000026FE /* recordAudioView.swift in Sources */,
-				642575AA24C4CBCF00379C58 /* ImageCache.swift in Sources */,
 				64A005D924BE53D3000026FE /* MessagesTableViews.swift in Sources */,
 				64E443FA2450FF0A00DA8076 /* BlurImageView.swift in Sources */,
 				64E443FF2451F60400DA8076 /* ImagePicker.swift in Sources */,
